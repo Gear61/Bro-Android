@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Bro</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="settings">Settings</string>
+
+    <string name="instructions">Click on any of yours friend below to text them the word "Bro".</string>
+    <string name="link_spam">Include a link to this app in your bros.</string>
 </resources>
