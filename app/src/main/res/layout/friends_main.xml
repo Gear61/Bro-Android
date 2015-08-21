@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="10dp">
 
     <TextView
         android:text="@string/instructions"
         android:textSize="18sp"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <CheckBox
         android:id="@+id/link_spam_checkbox"
-        android:layout_gravity="center_horizontal"
         android:text="@string/link_spam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <!-- rounded edit text -->
-    <com.beardedhen.androidbootstrap.BootstrapEditText
+    <EditText
         android:id="@+id/friend_input"
+        android:maxLines="1"
+        android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/search"
-        bootstrapbutton:be_roundedCorners="true"
-        android:gravity="center"/>
+        android:hint="@string/search" />
 
     <ListView
         android:id="@+id/friends_list"

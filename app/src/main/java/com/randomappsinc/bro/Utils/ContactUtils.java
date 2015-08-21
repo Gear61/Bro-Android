@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import com.randomappsinc.bro.Models.Friend;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,21 +17,6 @@ import java.util.Map;
  */
 public class ContactUtils
 {
-    // Given a "sanitized" phone # (only digits with country code), turn it back to human-readable format
-    // Example: +1 (510) 449-4353
-    public static String humanizePhoneNumber(String phoneNumber)
-    {
-        if (phoneNumber.length() != 11 || (!phoneNumber.matches("[0-9]+")))
-        {
-            return phoneNumber;
-        }
-        String countryCode = "+" + phoneNumber.charAt(0);
-        String areaCode = " (" + phoneNumber.substring(1, 4) + ") ";
-        String numberPart1 = phoneNumber.substring(4, 7) + "-";
-        String numberPart2 = phoneNumber.substring(7, 11);
-        return countryCode + areaCode + numberPart1 + numberPart2;
-    }
-
     // Given a phone number as a string, removes all non-digit characters and appends country code
     // This function is called before passing phone numbers to the back-end
     public static String sanitizePhoneNumber(String phoneNumber)
@@ -53,6 +39,7 @@ public class ContactUtils
         {
             phoneFriends.add(new Friend(phoneFriendsMap.get(phoneNumber), phoneNumber));
         }
+        Collections.sort(phoneFriends);
         return phoneFriends;
     }
 

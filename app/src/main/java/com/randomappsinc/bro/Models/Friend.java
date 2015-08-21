@@ -3,7 +3,7 @@ package com.randomappsinc.bro.Models;
 /**
  * Created by alexanderchiou on 8/18/15.
  */
-public class Friend
+public class Friend implements Comparable<Friend>
 {
     private String name;
     private String phoneNumber;
@@ -22,5 +22,10 @@ public class Friend
     public String getPhoneNumber()
     {
         return phoneNumber;
+    }
+
+    public int compareTo(Friend other)
+    {
+        return this.name.toLowerCase().compareTo(other.getName().toLowerCase());
     }
 }

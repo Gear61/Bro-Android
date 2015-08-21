@@ -3,7 +3,7 @@
     <string name="settings">Settings</string>
 
     <!-- Friends -->
-    <string name="instructions">Click on any of your friends below to text them the word "Bro".</string>
-    <string name="link_spam">Include a link to this app in your bros.</string>
+    <string name="instructions">Click on any of your friends below to text them the word \"Bro\".</string>
+    <string name="link_spam">Include a link to this app in your \"bros\".</string>
     <string name="search">Search Friends</string>
 </resources>
