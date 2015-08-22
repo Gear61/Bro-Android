@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.randomappsinc.bro.Models.Friend;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.ContactUtils;
+import com.randomappsinc.bro.Utils.FriendServer;
 
 import java.util.List;
 
@@ -24,7 +25,13 @@ public class FriendsAdapter extends BaseAdapter
     public FriendsAdapter(Context context)
     {
         this.context = context;
-        this.friends = ContactUtils.getPhoneFriends(context.getContentResolver());
+        this.friends = FriendServer.getInstance().getMatches("");
+    }
+
+    public void updateWithPrefix(String prefix)
+    {
+        this.friends = FriendServer.getInstance().getMatches(prefix);
+        notifyDataSetChanged();
     }
 
     public int getCount()

@@ -19,6 +19,7 @@
 
     <EditText
         android:id="@+id/friend_input"
+        android:imeOptions="actionDone"
         android:maxLines="1"
         android:inputType="textPersonName"
         android:layout_width="match_parent"
