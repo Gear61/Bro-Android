@@ -1,6 +1,7 @@
 package com.randomappsinc.bro.Utils;
 
-import com.randomappsinc.bro.Application.Application;
+import android.content.Context;
+
 import com.randomappsinc.bro.Models.Friend;
 
 import java.util.ArrayList;
@@ -14,18 +15,18 @@ public class FriendServer
     private static FriendServer instance;
     private List<Friend> friends;
 
-    public static FriendServer getInstance ()
+    public static FriendServer getInstance(Context context)
     {
         if (instance == null)
         {
-            instance = new FriendServer();
+            instance = new FriendServer(context);
         }
         return instance;
     }
 
-    private FriendServer()
+    private FriendServer(Context context)
     {
-        friends = ContactUtils.getPhoneFriends(Application.get().getContentResolver());
+        friends = ContactUtils.getPhoneFriends(context.getContentResolver());
     }
 
     public List<Friend> getMatches(String prefix)
