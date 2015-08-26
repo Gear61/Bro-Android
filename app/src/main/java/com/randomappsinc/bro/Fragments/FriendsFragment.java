@@ -36,7 +36,7 @@ public class FriendsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.friends_main, container, false);
+        View rootView = inflater.inflate(R.layout.friends, container, false);
         ButterKnife.bind(this, rootView);
 
         friendsAdapter = new FriendsAdapter(getActivity());

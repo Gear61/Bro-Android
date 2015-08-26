@@ -6,4 +6,7 @@
     <string name="instructions">Click any friend to text them \"Bro\".</string>
     <string name="link_spam">Include a link to this app in your messages.</string>
     <string name="search">Search Friends</string>
+
+    <!-- History -->
+    <string name="no_stories">No stories to display.</string>
 </resources>

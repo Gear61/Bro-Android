@@ -24,6 +24,6 @@ public class RecordDataSource
     public static List<Record> getAllRecords()
     {
         String idColumnName = StringUtil.toSQLName("id");
-        return Record.findWithQuery(Record.class, "SELECT * FROM NOTE ORDER BY "+ idColumnName +" DESC;");
+        return Record.findWithQuery(Record.class, "SELECT * FROM RECORD ORDER BY "+ idColumnName +" DESC;");
     }
 }
