@@ -1,5 +1,6 @@
 package com.randomappsinc.bro.Persistence;
 
+import com.orm.StringUtil;
 import com.randomappsinc.bro.Models.Record;
 
 import java.util.List;
@@ -20,10 +21,9 @@ public class RecordDataSource
         record.delete();
     }
 
-    public List<Record> getAllRecords()
+    public static List<Record> getAllRecords()
     {
-        return Record.listAll(Record.class);
+        String idColumnName = StringUtil.toSQLName("id");
+        return Record.findWithQuery(Record.class, "SELECT * FROM NOTE ORDER BY "+ idColumnName +" DESC;");
     }
-
-
 }

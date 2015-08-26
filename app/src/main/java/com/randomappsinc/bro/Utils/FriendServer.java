@@ -5,7 +5,9 @@ import android.content.Context;
 import com.randomappsinc.bro.Models.Friend;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by alexanderchiou on 8/20/15.
@@ -14,6 +16,7 @@ public class FriendServer
 {
     private static FriendServer instance;
     private List<Friend> friends;
+    private Map<String, String> numberToName;
 
     public static FriendServer getInstance(Context context)
     {
@@ -27,6 +30,11 @@ public class FriendServer
     private FriendServer(Context context)
     {
         friends = ContactUtils.getPhoneFriends(context.getContentResolver());
+        numberToName = new HashMap<>();
+        for (Friend friend : friends)
+        {
+            numberToName.put(friend.getPhoneNumber(), friend.getName());
+        }
     }
 
     public List<Friend> getMatches(String prefix)
@@ -60,6 +68,11 @@ public class FriendServer
             }
             return matchingFriends;
         }
+    }
+
+    public String getNameWithNumber(String phoneNumber)
+    {
+        return numberToName.get(phoneNumber);
     }
 
     // Returns index of first word with given prefix (-1 if it's not found)

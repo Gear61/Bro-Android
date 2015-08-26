@@ -6,25 +6,25 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.randomappsinc.bro.Adapters.FriendsAdapter;
 import com.randomappsinc.bro.R;
+import com.randomappsinc.bro.Utils.BroUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import butterknife.OnTextChanged;
 
 /**
  * Created by alexanderchiou on 8/18/15.
  */
 public class FriendsFragment extends Fragment {
-    public static final String APP_LINK = "https://play.google.com/store/apps/details?id=com.randomappsinc.bro";
-
-    @Bind(R.id.link_spam_checkbox) CheckBox linkSpamCheckbox;
-    @Bind(R.id.friend_input) EditText friendInput;
+    @Bind(R.id.link_spam_checkbox) CheckBox sendInviteCheckbox;
     @Bind(R.id.friends_list) ListView friendsList;
 
     private FriendsAdapter friendsAdapter;
@@ -54,5 +54,13 @@ public class FriendsFragment extends Fragment {
     public void afterTextChanged (Editable s)
     {
         friendsAdapter.updateWithPrefix(s.toString());
+    }
+
+    @OnItemClick(R.id.friends_list)
+    public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id)
+    {
+        String statusMessage = BroUtils.processBro(getActivity(), friendsAdapter.getItem(position),
+                sendInviteCheckbox.isChecked());
+        Toast.makeText(getActivity(), statusMessage, Toast.LENGTH_LONG).show();
     }
 }

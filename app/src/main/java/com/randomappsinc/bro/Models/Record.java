@@ -9,18 +9,18 @@ public class Record extends SugarRecord<Record>
 {
     long id;
     String targetPhoneNumber;
+    String targetName;
     String message;
-    boolean includedLink;
     long time;
 
     public Record() {}
 
-    public Record(long id, String targetPhoneNumber, String message, boolean includedLink, long time)
+    public Record(long id, String targetPhoneNumber, String targetName, String message)
     {
         this.id = id;
         this.targetPhoneNumber = targetPhoneNumber;
+        this.targetName = targetName;
         this.message = message;
-        this.includedLink = includedLink;
-        this.time = time;
+        this.time = System.currentTimeMillis();
     }
 }
