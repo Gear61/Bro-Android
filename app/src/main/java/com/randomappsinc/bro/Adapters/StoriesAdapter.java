@@ -33,10 +33,10 @@ public class StoriesAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
-    public void deleteStory(long recordId)
+    public void deleteStoryAt(int position)
     {
-        RecordDataSource.deleteRecord(recordId);
-        stories.remove(recordId);
+        RecordDataSource.deleteRecord(stories.get(position).getRecordId());
+        stories.remove(position);
         notifyDataSetChanged();
     }
 

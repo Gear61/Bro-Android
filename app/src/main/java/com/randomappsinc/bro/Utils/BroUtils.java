@@ -3,10 +3,10 @@ package com.randomappsinc.bro.Utils;
 import android.content.Context;
 import android.content.Intent;
 
-import com.randomappsinc.bro.Models.Friend;
 import com.randomappsinc.bro.Models.Record;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.Persistence.RecordDataSource;
+import com.randomappsinc.bro.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,15 +48,15 @@ public class BroUtils
         return messageOptions;
     }
 
-    public static String processBro(Context context, Friend friend, boolean sendInvite)
+    public static String processBro(Context context, Record record, boolean sendInvite)
     {
         String message = PreferencesManager.get(context).getMessage();
         String textMessage = message;
-        String statusMessage = "You " + message + "-ed " + friend.getName() + ".";
+        String statusMessage = record.getEventDeclaration();
         Set<String> invitedPhoneNumbers = PreferencesManager.get(context).getInvitedPhoneNumbers();
         if (sendInvite)
         {
-            if (invitedPhoneNumbers.contains(friend.getPhoneNumber()))
+            if (invitedPhoneNumbers.contains(record.getTargetPhoneNumber()))
             {
                 statusMessage += "You have already shared Bro with this friend, so we didn't add a link to your text.";
             }
@@ -69,11 +69,9 @@ public class BroUtils
                     statusMessage += " Also, by asking your friend to join the brovolution, " +
                             "you have unlocked the word \"" + unlockedMessage + "\".";
                 }
-                PreferencesManager.get(context).addInvitedPhoneNumber(friend.getPhoneNumber());
+                PreferencesManager.get(context).addInvitedPhoneNumber(record.getTargetPhoneNumber());
             }
         }
-        int recordId = PreferencesManager.get(context).getHighestRecordId() + 1;
-        Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
         // Update the DB/Shared Preferences
         RecordDataSource.insertRecord(record);
         PreferencesManager.get(context).incrementHighestRecordId();
@@ -81,6 +79,11 @@ public class BroUtils
         // Send the text
         // SmsManager.getDefault().sendTextMessage(friend.getPhoneNumber(), null, textMessage, null, null);
 
+        // Update history
+        Intent intent = new Intent();
+        intent.setAction(context.getString(R.string.bro_event_key));
+        intent.putExtra(context.getString(R.string.record_key), record);
+        context.sendBroadcast(intent);
         return statusMessage;
     }
 

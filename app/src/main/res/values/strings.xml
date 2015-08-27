@@ -11,6 +11,6 @@
     <string name="no_stories">No stories to display.</string>
 
     <!-- Broadcast keys -->
-    <string name="bro_event">broEvent</string>
-    <string name="record">record</string>
+    <string name="bro_event_key">broEvent</string>
+    <string name="record_key">record</string>
 </resources>

@@ -1,16 +1,11 @@
 package com.randomappsinc.bro.Fragments;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,6 +13,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.randomappsinc.bro.Adapters.FriendsAdapter;
+import com.randomappsinc.bro.Models.Friend;
+import com.randomappsinc.bro.Models.Record;
+import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.BroUtils;
 
@@ -67,8 +65,11 @@ public class FriendsFragment extends Fragment
     @OnItemClick(R.id.friends_list)
     public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id)
     {
-        String statusMessage = BroUtils.processBro(getActivity(), friendsAdapter.getItem(position),
-                sendInviteCheckbox.isChecked());
+        int recordId = PreferencesManager.get(getActivity()).getHighestRecordId() + 1;
+        String message = PreferencesManager.get(getActivity()).getMessage();
+        Friend friend = friendsAdapter.getItem(position);
+        Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
+        String statusMessage = BroUtils.processBro(getActivity(), record, sendInviteCheckbox.isChecked());
         Toast.makeText(getActivity(), statusMessage, Toast.LENGTH_LONG).show();
     }
 }

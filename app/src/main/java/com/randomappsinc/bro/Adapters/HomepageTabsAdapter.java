@@ -1,14 +1,11 @@
 package com.randomappsinc.bro.Adapters;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.randomappsinc.bro.Fragments.FriendsFragment;
 import com.randomappsinc.bro.Fragments.HistoryFragment;
-import com.randomappsinc.bro.R;
 
 /**
  * Created by Alex on 1/29/2015.
