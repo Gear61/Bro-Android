@@ -1,13 +1,19 @@
 package com.randomappsinc.bro.Fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,9 +29,11 @@ import butterknife.OnTextChanged;
 /**
  * Created by alexanderchiou on 8/18/15.
  */
-public class FriendsFragment extends Fragment {
+public class FriendsFragment extends Fragment
+{
     @Bind(R.id.link_spam_checkbox) CheckBox sendInviteCheckbox;
     @Bind(R.id.friends_list) ListView friendsList;
+    @Bind(R.id.friend_input) EditText friendInput;
 
     private FriendsAdapter friendsAdapter;
 

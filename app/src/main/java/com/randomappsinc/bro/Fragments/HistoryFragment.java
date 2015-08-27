@@ -1,10 +1,15 @@
 package com.randomappsinc.bro.Fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,10 +28,13 @@ public class HistoryFragment extends Fragment
     @Bind(R.id.no_stories) TextView noStories;
 
     private StoriesAdapter storiesAdapter;
-    
+    private BroReceiver broReceiver;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        broReceiver = new BroReceiver();
+        getActivity().registerReceiver(broReceiver, new IntentFilter(getString(R.string.bro_event)));
     }
 
     @Override
@@ -52,6 +60,37 @@ public class HistoryFragment extends Fragment
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        try
+        {
+            getActivity().unregisterReceiver(broReceiver);
+        }
+        catch (IllegalArgumentException ignored) {}
+    }
+
+    private class BroReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        // If this fragment is becoming visible, hide the keyboard
+        if (isVisibleToUser)
+        {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
     }
 }
 

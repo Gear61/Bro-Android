@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.randomappsinc.bro.Models.Friend;
 import com.randomappsinc.bro.Models.Record;
 import com.randomappsinc.bro.Persistence.RecordDataSource;
 import com.randomappsinc.bro.R;

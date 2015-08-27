@@ -1,7 +1,7 @@
 package com.randomappsinc.bro.Utils;
 
 import android.content.Context;
-import android.telephony.SmsManager;
+import android.content.Intent;
 
 import com.randomappsinc.bro.Models.Friend;
 import com.randomappsinc.bro.Models.Record;
@@ -80,6 +80,7 @@ public class BroUtils
 
         // Send the text
         // SmsManager.getDefault().sendTextMessage(friend.getPhoneNumber(), null, textMessage, null, null);
+
         return statusMessage;
     }
 

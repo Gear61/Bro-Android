@@ -9,4 +9,8 @@
 
     <!-- History -->
     <string name="no_stories">No stories to display.</string>
+
+    <!-- Broadcast keys -->
+    <string name="bro_event">broEvent</string>
+    <string name="record">record</string>
 </resources>
