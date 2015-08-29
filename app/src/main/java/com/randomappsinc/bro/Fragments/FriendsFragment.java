@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.randomappsinc.bro.Adapters.FriendsAdapter;
@@ -30,6 +31,7 @@ import butterknife.OnTextChanged;
  */
 public class FriendsFragment extends Fragment
 {
+    @Bind(R.id.instructions) TextView instructions;
     @Bind(R.id.link_spam_checkbox) CheckBox sendInviteCheckbox;
     @Bind(R.id.friends_list) ListView friendsList;
     @Bind(R.id.friend_input) EditText friendInput;
@@ -45,6 +47,9 @@ public class FriendsFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.friends, container, false);
         ButterKnife.bind(this, rootView);
+
+        instructions.setText("Click any friend to text them \"" +
+                PreferencesManager.get(getActivity()).getMessage() + "\".");
 
         friendsAdapter = new FriendsAdapter(getActivity());
         friendsList.setAdapter(friendsAdapter);

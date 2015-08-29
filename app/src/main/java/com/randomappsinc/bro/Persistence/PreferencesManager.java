@@ -73,4 +73,6 @@ public class PreferencesManager
     {
         prefs.edit().putInt(HIGHEST_RECORD_ID_KEY, getHighestRecordId() + 1).apply();
     }
+
+
 }
