@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:padding="10dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
     <TextView
         android:text="@string/instructions"
@@ -17,14 +19,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <EditText
-        android:id="@+id/friend_input"
-        android:imeOptions="actionDone"
-        android:maxLines="1"
-        android:inputType="textPersonName"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/search" />
+        android:layout_height="wrap_content">
+
+        <com.beardedhen.androidbootstrap.FontAwesomeText
+            android:id="@+id/clear_input"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fontawesometext:fa_icon="@string/x_icon"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/friend_input"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/clear_input"
+            android:imeOptions="actionDone"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search"
+            android:background="@android:color/transparent"
+            android:singleLine="true"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="5dp"
+        android:background="@color/app_blue"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
 
     <ListView
         android:id="@+id/friends_list"

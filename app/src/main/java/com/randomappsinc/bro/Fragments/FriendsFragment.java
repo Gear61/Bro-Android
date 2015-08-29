@@ -21,6 +21,7 @@ import com.randomappsinc.bro.Utils.BroUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.OnTextChanged;
 
@@ -71,5 +72,11 @@ public class FriendsFragment extends Fragment
         Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
         String statusMessage = BroUtils.processBro(getActivity(), record, sendInviteCheckbox.isChecked());
         Toast.makeText(getActivity(), statusMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.clear_input)
+    public void onClearInputClick(View view)
+    {
+        friendInput.setText("");
     }
 }

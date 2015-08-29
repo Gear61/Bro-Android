@@ -13,4 +13,7 @@
     <!-- Broadcast keys -->
     <string name="bro_event_key">broEvent</string>
     <string name="record_key">record</string>
+
+    <!-- Font Awesome icons -->
+    <string name="x_icon">fa-remove</string>
 </resources>
