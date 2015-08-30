@@ -15,6 +15,7 @@ public class PreferencesManager
     private static final String INVITED_PHONE_NUMBERS = "invitedPhoneNumbers";
     private static final String MESSAGE_KEY = "message";
     private static final String HIGHEST_RECORD_ID_KEY = "highestRecordId";
+    private static final String SHOULD_CONFIRM_KEY = "shouldConfirm";
     private static PreferencesManager instance;
     private SharedPreferences prefs;
 
@@ -74,5 +75,13 @@ public class PreferencesManager
         prefs.edit().putInt(HIGHEST_RECORD_ID_KEY, getHighestRecordId() + 1).apply();
     }
 
+    public boolean getShouldConfirm()
+    {
+        return prefs.getBoolean(SHOULD_CONFIRM_KEY, false);
+    }
 
+    public void setShouldConfirm(boolean shouldConfirm)
+    {
+        prefs.edit().putBoolean(SHOULD_CONFIRM_KEY, shouldConfirm).apply();
+    }
 }

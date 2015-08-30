@@ -1,11 +1,15 @@
 package com.randomappsinc.bro.Fragments;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -37,6 +41,7 @@ public class FriendsFragment extends Fragment
     @Bind(R.id.friend_input) EditText friendInput;
 
     private FriendsAdapter friendsAdapter;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,12 +49,11 @@ public class FriendsFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.friends, container, false);
         ButterKnife.bind(this, rootView);
-
-        instructions.setText("Click any friend to text them \"" +
-                PreferencesManager.get(getActivity()).getMessage() + "\".");
+        context = getActivity();
 
         friendsAdapter = new FriendsAdapter(getActivity());
         friendsList.setAdapter(friendsAdapter);
@@ -57,7 +61,16 @@ public class FriendsFragment extends Fragment
     }
 
     @Override
-    public void onDestroyView() {
+    public void onResume()
+    {
+        super.onResume();
+        instructions.setText("Click any friend to text them \"" +
+                PreferencesManager.get(getActivity()).getMessage() + "\". Share the link to unlock words.");
+    }
+
+    @Override
+    public void onDestroyView()
+    {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
@@ -71,12 +84,38 @@ public class FriendsFragment extends Fragment
     @OnItemClick(R.id.friends_list)
     public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id)
     {
-        int recordId = PreferencesManager.get(getActivity()).getHighestRecordId() + 1;
-        String message = PreferencesManager.get(getActivity()).getMessage();
-        Friend friend = friendsAdapter.getItem(position);
-        Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
-        String statusMessage = BroUtils.processBro(getActivity(), record, sendInviteCheckbox.isChecked());
-        Toast.makeText(getActivity(), statusMessage, Toast.LENGTH_LONG).show();
+        // Hide the keyboard if it's open
+        View focusedView = getActivity().getCurrentFocus();
+        if (focusedView != null)
+        {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
+        final String message = PreferencesManager.get(context).getMessage();
+        final Friend friend = friendsAdapter.getItem(position);
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.confirm_message)
+                .setMessage("Are you sure you want to text \"" + message + "\" to " + friend.getName() + "?")
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        int recordId = PreferencesManager.get(getActivity()).getHighestRecordId() + 1;
+                        Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
+                        String statusMessage = BroUtils.processBro(getActivity(), record, sendInviteCheckbox.isChecked());
+                        Toast.makeText(getActivity(), statusMessage, Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     @OnClick(R.id.clear_input)

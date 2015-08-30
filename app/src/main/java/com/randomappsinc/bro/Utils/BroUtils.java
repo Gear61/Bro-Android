@@ -2,6 +2,7 @@ package com.randomappsinc.bro.Utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.telephony.SmsManager;
 
 import com.randomappsinc.bro.Models.Record;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
@@ -20,7 +21,7 @@ public class BroUtils
     public static final String APP_LINK_MESSAGE = "\n\nJoin the brovolution: " +
             "https://play.google.com/store/apps/details?id=com.randomappsinc.bro";
 
-    public static List<String> returnMessageOptions(Context context)
+    public static List<String> getMessageOptions(Context context)
     {
         List<String> messageOptions = new ArrayList<>();
         messageOptions.add("Bro");
@@ -77,7 +78,7 @@ public class BroUtils
         PreferencesManager.get(context).incrementHighestRecordId();
 
         // Send the text
-        // SmsManager.getDefault().sendTextMessage(friend.getPhoneNumber(), null, textMessage, null, null);
+        SmsManager.getDefault().sendTextMessage(record.getTargetPhoneNumber(), null, textMessage, null, null);
 
         // Update history
         Intent intent = new Intent();
@@ -110,5 +111,27 @@ public class BroUtils
             return "Brochacho";
         }
         return "";
+    }
+
+    public static int getCurrentMessageIndex(Context context)
+    {
+        String message = PreferencesManager.get(context).getMessage();
+        switch (message)
+        {
+            case "Bro":
+                return 0;
+            case "Brah":
+                return 1;
+            case "Bruh":
+                return 2;
+            case "Broski":
+                return 3;
+            case "Broseph":
+                return 4;
+            case "Brochacho":
+                return 5;
+            default:
+                return 0;
+        }
     }
 }

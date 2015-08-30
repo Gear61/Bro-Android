@@ -5,6 +5,8 @@
     <!-- Friends -->
     <string name="link_spam">Include a link to this app in your messages.</string>
     <string name="search">Search Friends</string>
+    <string name="confirm_message">Confirm Message</string>
+    <string name="yes">Yes</string>
 
     <!-- History -->
     <string name="no_stories">No stories to display.</string>
@@ -15,4 +17,12 @@
 
     <!-- Font Awesome icons -->
     <string name="x_icon">fa-remove</string>
+    <string name="right_arrow_icon">fa-angle-right</string>
+
+    <!-- Settings -->
+    <string name="choose_message">Choose message</string>
+    <string name="confirm_messages">Confirm messages</string>
+    <string name="message_choices">Message Choices</string>
+    <string name="choose">Choose</string>
+
 </resources>
