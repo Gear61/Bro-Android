@@ -57,7 +57,7 @@ public class PreferencesManager
 
     public String getMessage()
     {
-        return prefs.getString(MESSAGE_KEY, "bro");
+        return prefs.getString(MESSAGE_KEY, "Bro");
     }
 
     public void setMessage(String message)
