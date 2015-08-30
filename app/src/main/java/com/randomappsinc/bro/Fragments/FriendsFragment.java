@@ -94,28 +94,40 @@ public class FriendsFragment extends Fragment
 
         final String message = PreferencesManager.get(context).getMessage();
         final Friend friend = friendsAdapter.getItem(position);
-        new AlertDialog.Builder(context)
-                .setTitle(R.string.confirm_message)
-                .setMessage("Are you sure you want to text \"" + message + "\" to " + friend.getName() + "?")
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
+        if (PreferencesManager.get(context).getShouldConfirm())
+        {
+            new AlertDialog.Builder(context)
+                    .setTitle(R.string.confirm_message)
+                    .setMessage("Are you sure you want to text \"" + message + "\" to " + friend.getName() + "?")
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
                     {
-                        int recordId = PreferencesManager.get(getActivity()).getHighestRecordId() + 1;
-                        Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
-                        String statusMessage = BroUtils.processBro(getActivity(), record, sendInviteCheckbox.isChecked());
-                        Toast.makeText(getActivity(), statusMessage, Toast.LENGTH_LONG).show();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            sendBro(message, friend);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener()
                     {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
+        else
+        {
+            sendBro(message, friend);
+        }
+    }
+
+    private void sendBro(String message, Friend friend)
+    {
+        int recordId = PreferencesManager.get(context).getHighestRecordId() + 1;
+        Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
+        String statusMessage = BroUtils.processBro(context, record, sendInviteCheckbox.isChecked());
+        Toast.makeText(getActivity(), statusMessage, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.clear_input)
