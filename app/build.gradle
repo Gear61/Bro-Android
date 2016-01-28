@@ -26,7 +26,9 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.github.satyan:sugar:1.3'
-    compile 'com.beardedhen:androidbootstrap:+'
-    compile 'com.afollestad:material-dialogs:0.7.9.0'
+    compile 'com.github.satyan:sugar:1.4'
+    compile 'com.beardedhen:androidbootstrap:1.2.3'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {
+        transitive = true
+    }
 }

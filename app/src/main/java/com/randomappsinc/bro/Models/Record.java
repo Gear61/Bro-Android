@@ -9,8 +9,7 @@ import com.randomappsinc.bro.Utils.FeedUtils;
 /**
  * Created by alexanderchiou on 8/25/15.
  */
-public class Record extends SugarRecord<Record> implements Parcelable
-{
+public class Record extends SugarRecord implements Parcelable {
     long id;
     String targetPhoneNumber;
     String targetName;
