@@ -18,8 +18,7 @@ public class Record extends SugarRecord implements Parcelable {
 
     public Record() {}
 
-    public Record(long id, String targetPhoneNumber, String targetName, String message)
-    {
+    public Record(long id, String targetPhoneNumber, String targetName, String message) {
         this.id = id;
         this.targetPhoneNumber = targetPhoneNumber;
         this.targetName = targetName;
@@ -27,38 +26,31 @@ public class Record extends SugarRecord implements Parcelable {
         this.time = System.currentTimeMillis();
     }
 
-    public void setTargetName(String targetName)
-    {
+    public void setTargetName(String targetName) {
         this.targetName = targetName;
     }
 
-    public long getRecordId()
-    {
+    public long getRecordId() {
         return id;
     }
 
-    public String getEventDeclaration()
-    {
+    public String getEventDeclaration() {
         return "You " + message + "-ed " + targetName + ".";
     }
 
-    public String getTimeStamp()
-    {
+    public String getTimeStamp() {
         return FeedUtils.humanizeUnixTime(time);
     }
 
-    public String getMessageSent()
-    {
+    public String getMessageSent() {
         return message;
     }
 
-    public String getTargetName()
-    {
+    public String getTargetName() {
         return targetName;
     }
 
-    public String getTargetPhoneNumber()
-    {
+    public String getTargetPhoneNumber() {
         return targetPhoneNumber;
     }
 

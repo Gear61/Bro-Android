@@ -1,12 +1,13 @@
 package com.randomappsinc.bro.Fragments;
 
+import android.Manifest;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ import butterknife.OnTextChanged;
  */
 public class FriendsFragment extends Fragment {
     public static final int READ_CONTACTS_REQUEST = 1;
+    public static final int SEND_SMS_REQUEST = 2;
 
     @Bind(R.id.loading_contacts) View loadingContacts;
     @Bind(R.id.content) View content;
@@ -46,7 +48,6 @@ public class FriendsFragment extends Fragment {
     @Bind(R.id.friend_input) EditText friendInput;
 
     private FriendsAdapter friendsAdapter;
-    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,12 @@ public class FriendsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.friends, container, false);
         ButterKnife.bind(this, rootView);
         sendInviteCheckbox.setCheckedImmediately(true);
-        context = getActivity();
-        setUpFriendsList();
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(Manifest.permission.READ_CONTACTS, READ_CONTACTS_REQUEST);
+        }
+        else {
+            setUpFriendsList();
+        }
         return rootView;
     }
 
@@ -97,18 +102,47 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
-            case READ_CONTACTS_REQUEST: {
+            case READ_CONTACTS_REQUEST:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     setUpFriendsList();
                 }
                 else {
-
+                    showReadContactsReason();
                 }
-                return;
-            }
+                break;
+            case SEND_SMS_REQUEST:
+                if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    showSendSmsReason();
+                }
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    public void showReadContactsReason() {
+        new MaterialDialog.Builder(getActivity())
+                .content(R.string.read_contacts_explanation)
+                .positiveText(android.R.string.yes)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        requestPermission(Manifest.permission.READ_CONTACTS, READ_CONTACTS_REQUEST);
+                    }
+                })
+                .show();
+    }
+
+    public void showSendSmsReason() {
+        new MaterialDialog.Builder(getActivity())
+                .content(R.string.send_sms_explanation)
+                .positiveText(android.R.string.yes)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        requestPermission(Manifest.permission.SEND_SMS, SEND_SMS_REQUEST);
+                    }
+                })
+                .show();
     }
 
     private void requestPermission(String permission, int requestCode) {
@@ -124,25 +158,30 @@ public class FriendsFragment extends Fragment {
     public void onItemClick(int position) {
         FormUtils.hideKeyboard(getActivity());
 
-        final Friend friend = friendsAdapter.getItem(position);
-        String message = PreferencesManager.get().getMessage();
-        String confirmationMessage = "Do you want to text \"" + message + "\" to " + friend.getName() + "?";
-        if (PreferencesManager.get().getShouldConfirm()) {
-            new MaterialDialog.Builder(getActivity())
-                    .title(R.string.confirm_message)
-                    .content(confirmationMessage)
-                    .positiveText(android.R.string.yes)
-                    .negativeText(android.R.string.no)
-                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            sendBro(friend);
-                        }
-                    })
-                    .show();
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            final Friend friend = friendsAdapter.getItem(position);
+            String message = PreferencesManager.get().getMessage();
+            String confirmationMessage = "Do you want to text \"" + message + "\" to " + friend.getName() + "?";
+            if (PreferencesManager.get().getShouldConfirm()) {
+                new MaterialDialog.Builder(getActivity())
+                        .title(R.string.confirm_message)
+                        .content(confirmationMessage)
+                        .positiveText(android.R.string.yes)
+                        .negativeText(android.R.string.no)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                sendBro(friend);
+                            }
+                        })
+                        .show();
+            }
+            else {
+                sendBro(friend);
+            }
         }
         else {
-            sendBro(friend);
+            requestPermission(Manifest.permission.SEND_SMS, SEND_SMS_REQUEST);
         }
     }
 
@@ -150,7 +189,7 @@ public class FriendsFragment extends Fragment {
         String message = PreferencesManager.get().getMessage();
         int recordId = PreferencesManager.get().getHighestRecordId() + 1;
         Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
-        String statusMessage = BroUtils.processBro(context, record, sendInviteCheckbox.isChecked());
+        String statusMessage = BroUtils.processBro(getActivity(), record, sendInviteCheckbox.isChecked());
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.showSnackbar(statusMessage);
     }

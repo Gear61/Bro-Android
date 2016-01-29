@@ -3,8 +3,7 @@ package com.randomappsinc.bro.Utils;
 /**
  * Created by alexanderchiou on 8/25/15.
  */
-public class FeedUtils
-{
+public class FeedUtils {
     public static final int SECONDS_IN_A_MINUTE = 60;
     public static final int SECONDS_IN_AN_HOUR = SECONDS_IN_A_MINUTE * 60;
     public static final int SECONDS_IN_A_DAY = SECONDS_IN_AN_HOUR * 24;
