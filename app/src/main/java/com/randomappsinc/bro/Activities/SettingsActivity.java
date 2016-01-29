@@ -43,7 +43,7 @@ public class SettingsActivity extends StandardActivity {
     public void showTutorial() {
         new MaterialDialog.Builder(this)
                 .title(R.string.tutorial)
-                .content(R.string.instructions)
+                .content(R.string.settings_instructions)
                 .positiveText(android.R.string.yes)
                 .show();
     }

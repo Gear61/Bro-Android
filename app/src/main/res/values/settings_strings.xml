@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="settings_instructions">Simply click on your friends to \"Bro\" them.
+        Include a link to the app in your messages to unlock new words.
+        Use the buttons in the homepage\'s toolbar to choose your message and control confirmation behavior.
+    </string>
+
     <string name="view_tutorial">View tutorial</string>
     <string name="send_feedback">Send feedback</string>
     <string name="my_other_apps">My other apps</string>
