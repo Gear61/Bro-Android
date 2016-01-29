@@ -2,10 +2,6 @@ package com.randomappsinc.bro.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -25,8 +21,7 @@ import butterknife.OnClick;
 /**
  * Created by alexanderchiou on 8/29/15.
  */
-public class SettingsActivity extends ActionBarActivity
-{
+public class SettingsActivity extends StandardActivity {
     public static final String NOW_CONFIRMING_MESSAGE =
             "The app will now show a confirmation dialog before sending messages.";
     public static final String NOT_CONFIRMING_MESSAGE =
@@ -36,8 +31,7 @@ public class SettingsActivity extends ActionBarActivity
     @Bind(R.id.should_confirm) CheckBox shouldConfirm;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,28 +42,8 @@ public class SettingsActivity extends ActionBarActivity
         shouldConfirm.setOnCheckedChangeListener(shouldConfirmListener);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_blank, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int id = item.getItemId();
-        if (id == android.R.id.home)
-        {
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @OnClick(R.id.choose_message)
-    public void onChooseMessageClick(View view)
-    {
+    public void onChooseMessageClick(View view) {
         List<String> optionsList = BroUtils.getMessageOptions(context);
         CharSequence[] options = optionsList.toArray(new CharSequence[optionsList.size()]);
 

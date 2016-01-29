@@ -16,57 +16,44 @@ import java.util.Set;
 /**
  * Created by alexanderchiou on 8/25/15.
  */
-public class BroUtils
-{
+public class BroUtils {
     public static final String APP_LINK_MESSAGE = "\n\nJoin the brovolution: " +
             "https://play.google.com/store/apps/details?id=com.randomappsinc.bro";
 
-    public static List<String> getMessageOptions(Context context)
-    {
+    public static List<String> getMessageOptions(Context context) {
         List<String> messageOptions = new ArrayList<>();
         messageOptions.add("Bro");
         int numFriendsInvited = PreferencesManager.get(context).getInvitedPhoneNumbers().size();
-        if (numFriendsInvited >= 1)
-        {
+        if (numFriendsInvited >= 1) {
             messageOptions.add("Brah");
         }
-        if (numFriendsInvited >= 2)
-        {
+        if (numFriendsInvited >= 2) {
             messageOptions.add("Bruh");
         }
-        if (numFriendsInvited >= 3)
-        {
+        if (numFriendsInvited >= 3) {
             messageOptions.add("Broski");
         }
-        if (numFriendsInvited >= 4)
-        {
+        if (numFriendsInvited >= 4) {
             messageOptions.add("Broseph");
         }
-        if (numFriendsInvited >= 5)
-        {
+        if (numFriendsInvited >= 5) {
             messageOptions.add("Brochacho");
         }
         return messageOptions;
     }
 
-    public static String processBro(Context context, Record record, boolean sendInvite)
-    {
-        String message = PreferencesManager.get(context).getMessage();
-        String textMessage = message;
+    public static String processBro(Context context, Record record, boolean sendInvite) {
+        String textMessage = PreferencesManager.get(context).getMessage();
         String statusMessage = record.getEventDeclaration();
         Set<String> invitedPhoneNumbers = PreferencesManager.get(context).getInvitedPhoneNumbers();
-        if (sendInvite)
-        {
-            if (invitedPhoneNumbers.contains(record.getTargetPhoneNumber()))
-            {
+        if (sendInvite) {
+            if (invitedPhoneNumbers.contains(record.getTargetPhoneNumber())) {
                 statusMessage += "You have already shared Bro with this friend, so we didn't add a link to your text.";
             }
-            else
-            {
+            else {
                 textMessage += APP_LINK_MESSAGE;
                 String unlockedMessage = getUnlockedMessage(invitedPhoneNumbers.size());
-                if (!unlockedMessage.isEmpty())
-                {
+                if (!unlockedMessage.isEmpty()) {
                     statusMessage += " Also, by asking your friend to join the brovolution, " +
                             "you have unlocked the word \"" + unlockedMessage + "\".";
                 }
@@ -88,36 +75,28 @@ public class BroUtils
         return statusMessage;
     }
 
-    public static String getUnlockedMessage(int numFriendsInvited)
-    {
-        if (numFriendsInvited == 0)
-        {
+    public static String getUnlockedMessage(int numFriendsInvited) {
+        if (numFriendsInvited == 0) {
            return "Brah";
         }
-        if (numFriendsInvited == 1)
-        {
+        if (numFriendsInvited == 1) {
            return "Bruh";
         }
-        if (numFriendsInvited == 2)
-        {
+        if (numFriendsInvited == 2) {
             return "Broski";
         }
-        if (numFriendsInvited == 3)
-        {
+        if (numFriendsInvited == 3) {
             return "Broseph";
         }
-        if (numFriendsInvited == 4)
-        {
+        if (numFriendsInvited == 4) {
             return "Brochacho";
         }
         return "";
     }
 
-    public static int getCurrentMessageIndex(Context context)
-    {
+    public static int getCurrentMessageIndex(Context context) {
         String message = PreferencesManager.get(context).getMessage();
-        switch (message)
-        {
+        switch (message) {
             case "Bro":
                 return 0;
             case "Brah":
