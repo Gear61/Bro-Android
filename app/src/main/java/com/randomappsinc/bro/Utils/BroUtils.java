@@ -54,8 +54,7 @@ public class BroUtils {
                 textMessage += APP_LINK_MESSAGE;
                 String unlockedMessage = getUnlockedMessage(invitedPhoneNumbers.size());
                 if (!unlockedMessage.isEmpty()) {
-                    statusMessage += " Also, by asking your friend to join the brovolution, " +
-                            "you have unlocked the word \"" + unlockedMessage + "\".";
+                    statusMessage += " You have unlocked the word \"" + unlockedMessage + "\".";
                 }
                 PreferencesManager.get().addInvitedPhoneNumber(record.getTargetPhoneNumber());
             }

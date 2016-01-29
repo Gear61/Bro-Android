@@ -1,25 +1,26 @@
 package com.randomappsinc.bro.Fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.randomappsinc.bro.Activities.MainActivity;
 import com.randomappsinc.bro.Adapters.FriendsAdapter;
 import com.randomappsinc.bro.Models.Friend;
 import com.randomappsinc.bro.Models.Record;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.BroUtils;
+import com.randomappsinc.bro.Utils.FormUtils;
 import com.rey.material.widget.CheckBox;
 
 import butterknife.Bind;
@@ -69,47 +70,38 @@ public class FriendsFragment extends Fragment {
     }
 
     @OnItemClick(R.id.friends_list)
-    public void onItemClick(View view, final int position) {
-        // Hide the keyboard if it's open
-        View focusedView = getActivity().getCurrentFocus();
-        if (focusedView != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+    public void onItemClick(int position) {
+        FormUtils.hideKeyboard(getActivity());
 
-        final String message = PreferencesManager.get().getMessage();
         final Friend friend = friendsAdapter.getItem(position);
+        String message = PreferencesManager.get().getMessage();
+        String confirmationMessage = "Do you want to text \"" + message + "\" to " + friend.getName() + "?";
         if (PreferencesManager.get().getShouldConfirm()) {
-            new AlertDialog.Builder(context)
-                    .setTitle(R.string.confirm_message)
-                    .setMessage("Are you sure you want to text \"" + message + "\" to " + friend.getName() + "?")
-                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
-                    {
+            new MaterialDialog.Builder(getActivity())
+                    .title(R.string.confirm_message)
+                    .content(confirmationMessage)
+                    .positiveText(android.R.string.yes)
+                    .negativeText(android.R.string.no)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            sendBro(message, friend);
-                        }
-                    })
-                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            dialog.dismiss();
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            sendBro(friend);
                         }
                     })
                     .show();
         }
         else {
-            sendBro(message, friend);
+            sendBro(friend);
         }
     }
 
-    private void sendBro(String message, Friend friend) {
+    private void sendBro(Friend friend) {
+        String message = PreferencesManager.get().getMessage();
         int recordId = PreferencesManager.get().getHighestRecordId() + 1;
         Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
         String statusMessage = BroUtils.processBro(context, record, sendInviteCheckbox.isChecked());
-        Toast.makeText(getActivity(), statusMessage, Toast.LENGTH_LONG).show();
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.showSnackbar(statusMessage);
     }
 
     @OnClick(R.id.clear_input)
