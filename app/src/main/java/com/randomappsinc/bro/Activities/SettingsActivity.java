@@ -1,49 +1,70 @@
 package com.randomappsinc.bro.Activities;
 
-import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Toast;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.widget.ListView;
 
-import com.randomappsinc.bro.Persistence.PreferencesManager;
+import com.randomappsinc.bro.Adapters.SettingsAdapter;
 import com.randomappsinc.bro.R;
 
 import butterknife.Bind;
+import butterknife.BindString;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 /**
  * Created by alexanderchiou on 8/29/15.
  */
 public class SettingsActivity extends StandardActivity {
-    public static final String NOW_CONFIRMING_MESSAGE =
-            "The app will now show a confirmation dialog before sending messages.";
-    public static final String NOT_CONFIRMING_MESSAGE =
-            "The app will now stop showing a confirmation dialog before sending messages.";
-    private Context context;
+    public static final String SUPPORT_EMAIL = "chessnone@gmail.com";
+    public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/developer?id=RandomAppsInc";
+    public static final String REPO_URL = "https://github.com/Gear61/Bro-Android";
 
-    @Bind(R.id.should_confirm) CheckBox shouldConfirm;
+    @Bind(R.id.parent) View parent;
+    @Bind(R.id.settings_options) ListView settingsOptions;
+    @BindString(R.string.play_store_error) String playStoreError;
+    @BindString(R.string.feedback_subject) String feedbackSubject;
+    @BindString(R.string.send_email) String sendEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        context = this;
-
         ButterKnife.bind(this);
-        shouldConfirm.setChecked(PreferencesManager.get().getShouldConfirm());
-        shouldConfirm.setOnCheckedChangeListener(shouldConfirmListener);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        settingsOptions.setAdapter(new SettingsAdapter(this));
     }
 
-    CompoundButton.OnCheckedChangeListener shouldConfirmListener = new CompoundButton.OnCheckedChangeListener()
-    {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-        {
-            PreferencesManager.get().setShouldConfirm(isChecked);
-            String message = isChecked ? NOW_CONFIRMING_MESSAGE : NOT_CONFIRMING_MESSAGE;
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    @OnItemClick(R.id.settings_options)
+    public void onItemClick(int position) {
+        Intent intent = null;
+        switch (position) {
+            case 1:
+                String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
+                Uri mailUri = Uri.parse(uriText);
+                Intent sendIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
+                sendIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(Intent.createChooser(sendIntent, sendEmail));
+                return;
+            case 2:
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OTHER_APPS_URL));
+                break;
+            case 3:
+                Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+                intent = new Intent(Intent.ACTION_VIEW, uri);
+                if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
+                    Snackbar.make(parent, playStoreError, Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+                break;
+            case 4:
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL));
+                break;
         }
-    };
+        startActivity(intent);
+    }
 }
