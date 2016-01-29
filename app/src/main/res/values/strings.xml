@@ -40,4 +40,7 @@
     </string-array>
     <string name="now_confirming">The app will now show a confirmation dialog before sending messages.</string>
     <string name="not_confirming">The app will now automatically send messages.</string>
+
+    <string name="story_options">Story Options</string>
+    <string name="delete_story">Delete story</string>
 </resources>
