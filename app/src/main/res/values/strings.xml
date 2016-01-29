@@ -16,8 +16,8 @@
     <string name="record_key">record</string>
 
     <!-- Font Awesome icons -->
-    <string name="x_icon">fa-remove</string>
-    <string name="right_arrow_icon">fa-angle-right</string>
+    <string name="x_icon">{fa-remove}</string>
+    <string name="right_arrow_icon">{fa-angle-right}</string>
 
     <!-- Settings -->
     <string name="choose_message">Choose message</string>

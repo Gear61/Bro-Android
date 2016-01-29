@@ -3,6 +3,8 @@ package com.randomappsinc.bro.Utils;
 import android.app.Application;
 import android.content.Context;
 
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.orm.SugarContext;
 
 /**
@@ -15,6 +17,7 @@ public class MyApplication extends Application {
         super.onCreate();
         context = getApplicationContext();
         SugarContext.init(context);
+        Iconify.with(new FontAwesomeModule());
     }
 
     public void onTerminate() {
