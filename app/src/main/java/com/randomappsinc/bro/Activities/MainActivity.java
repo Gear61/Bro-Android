@@ -36,6 +36,15 @@ public class MainActivity extends StandardActivity {
         HomepageTabsAdapter profileTabsAdapter = new HomepageTabsAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(profileTabsAdapter);
         slidingTabLayout.setViewPager(mViewPager);
+
+        if (PreferencesManager.get().isFirstTimeUser()) {
+            new MaterialDialog.Builder(this)
+                    .title(R.string.tutorial)
+                    .content(R.string.instructions)
+                    .positiveText(android.R.string.yes)
+                    .show();
+            PreferencesManager.get().rememberShowingTutorial();
+        }
     }
 
     public void showSnackbar(String message) {

@@ -13,7 +13,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.randomappsinc.bro.Adapters.FriendsAdapter;
@@ -32,9 +31,7 @@ import butterknife.OnTextChanged;
 /**
  * Created by alexanderchiou on 8/18/15.
  */
-public class FriendsFragment extends Fragment
-{
-    @Bind(R.id.instructions) TextView instructions;
+public class FriendsFragment extends Fragment {
     @Bind(R.id.link_spam_checkbox) CheckBox sendInviteCheckbox;
     @Bind(R.id.friends_list) ListView friendsList;
     @Bind(R.id.friend_input) EditText friendInput;
@@ -56,13 +53,6 @@ public class FriendsFragment extends Fragment
         friendsAdapter = new FriendsAdapter(getActivity());
         friendsList.setAdapter(friendsAdapter);
         return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        instructions.setText("Click any friend to text them \"" +
-                PreferencesManager.get().getMessage() + "\". Share the link to unlock words.");
     }
 
     @Override
@@ -122,8 +112,7 @@ public class FriendsFragment extends Fragment
     }
 
     @OnClick(R.id.clear_input)
-    public void onClearInputClick()
-    {
+    public void onClearInputClick() {
         friendInput.setText("");
     }
 }

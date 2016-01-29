@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.bro.Adapters.SettingsAdapter;
 import com.randomappsinc.bro.R;
 
@@ -39,10 +40,21 @@ public class SettingsActivity extends StandardActivity {
         settingsOptions.setAdapter(new SettingsAdapter(this));
     }
 
+    public void showTutorial() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.tutorial)
+                .content(R.string.instructions)
+                .positiveText(android.R.string.yes)
+                .show();
+    }
+
     @OnItemClick(R.id.settings_options)
     public void onItemClick(int position) {
         Intent intent = null;
         switch (position) {
+            case 0:
+                showTutorial();
+                return;
             case 1:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
                 Uri mailUri = Uri.parse(uriText);
