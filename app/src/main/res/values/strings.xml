@@ -43,4 +43,8 @@
 
     <string name="story_options">Story Options</string>
     <string name="delete_story">Delete story</string>
+
+    <!-- Permissions -->
+    <string name="read_contacts_explanation">In order for this app to function, we need access to your contacts.</string>
+    <string name="send_sms_explanation">For maximum Bro-ing efficiency, you need to allow us to send text messages on your behalf.</string>
 </resources>

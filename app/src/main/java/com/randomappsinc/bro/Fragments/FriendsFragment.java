@@ -1,11 +1,12 @@
 package com.randomappsinc.bro.Fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.support.v13.app.FragmentCompat;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,7 +99,10 @@ public class FriendsFragment extends Fragment {
         switch (requestCode) {
             case READ_CONTACTS_REQUEST: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Do stuff!
+                    setUpFriendsList();
+                }
+                else {
+
                 }
                 return;
             }
@@ -107,9 +111,13 @@ public class FriendsFragment extends Fragment {
         }
     }
 
+    private void requestPermission(String permission, int requestCode) {
+        FragmentCompat.requestPermissions(this, new String[]{permission}, requestCode);
+    }
+
     @OnTextChanged(value = R.id.friend_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void afterTextChanged (Editable s) {
-        friendsAdapter.updateWithPrefix(s.toString());
+    public void afterTextChanged(Editable searchInput) {
+        friendsAdapter.updateWithPrefix(searchInput.toString());
     }
 
     @OnItemClick(R.id.friends_list)

@@ -33,7 +33,7 @@ public class MainActivity extends StandardActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        HomepageTabsAdapter profileTabsAdapter = new HomepageTabsAdapter(getSupportFragmentManager());
+        HomepageTabsAdapter profileTabsAdapter = new HomepageTabsAdapter(getFragmentManager());
         mViewPager.setAdapter(profileTabsAdapter);
         slidingTabLayout.setViewPager(mViewPager);
 
