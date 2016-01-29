@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Bro</string>
-    <string name="show_tutorial">Show tutorial</string>
     <string name="choose_message">Choose message</string>
     <string name="confirm_messages">Confirm messages</string>
     <string name="settings">Settings</string>
@@ -10,6 +9,7 @@
     <string name="search">Search Friends</string>
     <string name="confirm_message">Confirm Message</string>
     <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!-- History -->
     <string name="no_stories">No stories to display.</string>
@@ -25,4 +25,11 @@
     <!-- Settings -->
     <string name="message_choices">Message Choices</string>
     <string name="choose">Choose</string>
+    <string name="confirm_message_question">Confirm messages?</string>
+    <string-array name="yes_no">
+        <item>@string/yes</item>
+        <item>@string/no</item>
+    </string-array>
+    <string name="now_confirming">The app will now show a confirmation dialog before sending messages.</string>
+    <string name="not_confirming">The app will now automatically send messages.</string>
 </resources>
