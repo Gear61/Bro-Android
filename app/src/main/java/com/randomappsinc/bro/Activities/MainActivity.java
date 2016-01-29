@@ -33,6 +33,14 @@ public class MainActivity extends StandardActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.choose_message).setIcon(
+                new IconDrawable(this, FontAwesomeIcons.fa_wechat)
+                        .colorRes(R.color.white)
+                        .actionBarSize());
+        menu.findItem(R.id.confirm_messages).setIcon(
+                new IconDrawable(this, FontAwesomeIcons.fa_hand_stop_o)
+                        .colorRes(R.color.white)
+                        .actionBarSize());
         menu.findItem(R.id.settings).setIcon(
                 new IconDrawable(this, FontAwesomeIcons.fa_gear)
                         .colorRes(R.color.white)
@@ -42,11 +50,17 @@ public class MainActivity extends StandardActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.settings) {
-            Intent loadSettingsPage = new Intent(this, SettingsActivity.class);
-            startActivity(loadSettingsPage);
-            return true;
+        switch(item.getItemId()) {
+            case R.id.choose_message:
+                return true;
+            case R.id.confirm_messages:
+                return true;
+            case R.id.settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
         }
-        return super.onOptionsItemSelected(item);
     }
 }

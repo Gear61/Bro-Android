@@ -139,7 +139,7 @@ public class HistoryFragment extends Fragment
                 String action = adapter.getItem(dialogPosition);
                 if (action.startsWith("Re-"))
                 {
-                    int recordId = PreferencesManager.get(getActivity()).getHighestRecordId() + 1;
+                    int recordId = PreferencesManager.get().getHighestRecordId() + 1;
                     Record baseRecord = storiesAdapter.getItem(position);
                     Record record = new Record(recordId, baseRecord.getTargetPhoneNumber(),
                             baseRecord.getTargetName(), baseRecord.getMessageSent());

@@ -20,10 +20,10 @@ public class BroUtils {
     public static final String APP_LINK_MESSAGE = "\n\nJoin the brovolution: " +
             "https://play.google.com/store/apps/details?id=com.randomappsinc.bro";
 
-    public static List<String> getMessageOptions(Context context) {
+    public static List<String> getMessageOptions() {
         List<String> messageOptions = new ArrayList<>();
         messageOptions.add("Bro");
-        int numFriendsInvited = PreferencesManager.get(context).getInvitedPhoneNumbers().size();
+        int numFriendsInvited = PreferencesManager.get().getInvitedPhoneNumbers().size();
         if (numFriendsInvited >= 1) {
             messageOptions.add("Brah");
         }
@@ -43,9 +43,9 @@ public class BroUtils {
     }
 
     public static String processBro(Context context, Record record, boolean sendInvite) {
-        String textMessage = PreferencesManager.get(context).getMessage();
+        String textMessage = PreferencesManager.get().getMessage();
         String statusMessage = record.getEventDeclaration();
-        Set<String> invitedPhoneNumbers = PreferencesManager.get(context).getInvitedPhoneNumbers();
+        Set<String> invitedPhoneNumbers = PreferencesManager.get().getInvitedPhoneNumbers();
         if (sendInvite) {
             if (invitedPhoneNumbers.contains(record.getTargetPhoneNumber())) {
                 statusMessage += "You have already shared Bro with this friend, so we didn't add a link to your text.";
@@ -57,12 +57,12 @@ public class BroUtils {
                     statusMessage += " Also, by asking your friend to join the brovolution, " +
                             "you have unlocked the word \"" + unlockedMessage + "\".";
                 }
-                PreferencesManager.get(context).addInvitedPhoneNumber(record.getTargetPhoneNumber());
+                PreferencesManager.get().addInvitedPhoneNumber(record.getTargetPhoneNumber());
             }
         }
         // Update the DB/Shared Preferences
         RecordDataSource.insertRecord(record);
-        PreferencesManager.get(context).incrementHighestRecordId();
+        PreferencesManager.get().incrementHighestRecordId();
 
         // Send the text
         SmsManager.getDefault().sendTextMessage(record.getTargetPhoneNumber(), null, textMessage, null, null);
@@ -94,8 +94,8 @@ public class BroUtils {
         return "";
     }
 
-    public static int getCurrentMessageIndex(Context context) {
-        String message = PreferencesManager.get(context).getMessage();
+    public static int getCurrentMessageIndex() {
+        String message = PreferencesManager.get().getMessage();
         switch (message) {
             case "Bro":
                 return 0;

@@ -3,7 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/choose_message"
+        android:title="@string/choose_message"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/confirm_messages"
+        android:title="@string/confirm_messages"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/settings"
         android:title="@string/settings"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 </menu>

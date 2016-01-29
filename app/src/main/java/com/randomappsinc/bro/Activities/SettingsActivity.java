@@ -38,23 +38,23 @@ public class SettingsActivity extends StandardActivity {
         context = this;
 
         ButterKnife.bind(this);
-        shouldConfirm.setChecked(PreferencesManager.get(context).getShouldConfirm());
+        shouldConfirm.setChecked(PreferencesManager.get().getShouldConfirm());
         shouldConfirm.setOnCheckedChangeListener(shouldConfirmListener);
     }
 
     @OnClick(R.id.choose_message)
     public void onChooseMessageClick(View view) {
-        List<String> optionsList = BroUtils.getMessageOptions(context);
+        List<String> optionsList = BroUtils.getMessageOptions();
         CharSequence[] options = optionsList.toArray(new CharSequence[optionsList.size()]);
 
         new MaterialDialog.Builder(context)
                 .title(R.string.message_choices)
                 .items(options)
-                .itemsCallbackSingleChoice(BroUtils.getCurrentMessageIndex(context),
+                .itemsCallbackSingleChoice(BroUtils.getCurrentMessageIndex(),
                         new MaterialDialog.ListCallbackSingleChoice() {
                             @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        PreferencesManager.get(context).setMessage(text.toString());
+                        PreferencesManager.get().setMessage(text.toString());
                         Toast.makeText(context, "You will now text \"" + text.toString() + "\" in your messages.",
                                 Toast.LENGTH_LONG).show();
                         return true;
@@ -69,7 +69,7 @@ public class SettingsActivity extends StandardActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
         {
-            PreferencesManager.get(context).setShouldConfirm(isChecked);
+            PreferencesManager.get().setShouldConfirm(isChecked);
             String message = isChecked ? NOW_CONFIRMING_MESSAGE : NOT_CONFIRMING_MESSAGE;
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         }

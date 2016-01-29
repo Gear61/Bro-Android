@@ -62,7 +62,7 @@ public class FriendsFragment extends Fragment
     public void onResume() {
         super.onResume();
         instructions.setText("Click any friend to text them \"" +
-                PreferencesManager.get(getActivity()).getMessage() + "\". Share the link to unlock words.");
+                PreferencesManager.get().getMessage() + "\". Share the link to unlock words.");
     }
 
     @Override
@@ -86,9 +86,9 @@ public class FriendsFragment extends Fragment
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-        final String message = PreferencesManager.get(context).getMessage();
+        final String message = PreferencesManager.get().getMessage();
         final Friend friend = friendsAdapter.getItem(position);
-        if (PreferencesManager.get(context).getShouldConfirm()) {
+        if (PreferencesManager.get().getShouldConfirm()) {
             new AlertDialog.Builder(context)
                     .setTitle(R.string.confirm_message)
                     .setMessage("Are you sure you want to text \"" + message + "\" to " + friend.getName() + "?")
@@ -115,7 +115,7 @@ public class FriendsFragment extends Fragment
     }
 
     private void sendBro(String message, Friend friend) {
-        int recordId = PreferencesManager.get(context).getHighestRecordId() + 1;
+        int recordId = PreferencesManager.get().getHighestRecordId() + 1;
         Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
         String statusMessage = BroUtils.processBro(context, record, sendInviteCheckbox.isChecked());
         Toast.makeText(getActivity(), statusMessage, Toast.LENGTH_LONG).show();
