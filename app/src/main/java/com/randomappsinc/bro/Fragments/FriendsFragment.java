@@ -1,6 +1,8 @@
 package com.randomappsinc.bro.Fragments;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -21,6 +23,7 @@ import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.BroUtils;
 import com.randomappsinc.bro.Utils.FormUtils;
+import com.randomappsinc.bro.Utils.FriendServer;
 import com.rey.material.widget.CheckBox;
 
 import butterknife.Bind;
@@ -33,6 +36,10 @@ import butterknife.OnTextChanged;
  * Created by alexanderchiou on 8/18/15.
  */
 public class FriendsFragment extends Fragment {
+    public static final int READ_CONTACTS_REQUEST = 1;
+
+    @Bind(R.id.loading_contacts) View loadingContacts;
+    @Bind(R.id.content) View content;
     @Bind(R.id.link_spam_checkbox) CheckBox sendInviteCheckbox;
     @Bind(R.id.friends_list) ListView friendsList;
     @Bind(R.id.friend_input) EditText friendInput;
@@ -51,10 +58,33 @@ public class FriendsFragment extends Fragment {
         ButterKnife.bind(this, rootView);
         sendInviteCheckbox.setCheckedImmediately(true);
         context = getActivity();
-
-        friendsAdapter = new FriendsAdapter(getActivity());
-        friendsList.setAdapter(friendsAdapter);
+        setUpFriendsList();
         return rootView;
+    }
+
+    public void setUpFriendsList() {
+        new FriendsListInitializer().execute();
+    }
+
+    private class FriendsListInitializer extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            FriendServer.getInstance().initialize();
+            renderFriendsList();
+            return null;
+        }
+    }
+
+    private void renderFriendsList() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                loadingContacts.setVisibility(View.GONE);
+                content.setVisibility(View.VISIBLE);
+                friendsAdapter = new FriendsAdapter(getActivity());
+                friendsList.setAdapter(friendsAdapter);
+            }
+        });
     }
 
     @Override
@@ -63,9 +93,22 @@ public class FriendsFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case READ_CONTACTS_REQUEST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Do stuff!
+                }
+                return;
+            }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
     @OnTextChanged(value = R.id.friend_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void afterTextChanged (Editable s)
-    {
+    public void afterTextChanged (Editable s) {
         friendsAdapter.updateWithPrefix(s.toString());
     }
 

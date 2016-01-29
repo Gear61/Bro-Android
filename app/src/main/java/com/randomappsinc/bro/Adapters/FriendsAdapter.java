@@ -16,25 +16,21 @@ import java.util.List;
 /**
  * Created by alexanderchiou on 8/20/15.
  */
-public class FriendsAdapter extends BaseAdapter
-{
+public class FriendsAdapter extends BaseAdapter {
     private Context context;
     private List<Friend> friends;
 
-    public FriendsAdapter(Context context)
-    {
+    public FriendsAdapter(Context context) {
         this.context = context;
-        this.friends = FriendServer.getInstance(context).getMatches("");
+        this.friends = FriendServer.getInstance().getMatches("");
     }
 
-    public void updateWithPrefix(String prefix)
-    {
-        this.friends = FriendServer.getInstance(context).getMatches(prefix);
+    public void updateWithPrefix(String prefix) {
+        this.friends = FriendServer.getInstance().getMatches(prefix);
         notifyDataSetChanged();
     }
 
-    public int getCount()
-    {
+    public int getCount() {
         return friends.size();
     }
 
@@ -46,26 +42,22 @@ public class FriendsAdapter extends BaseAdapter
         return position;
     }
 
-    public static class ViewHolder
-    {
+    public static class ViewHolder {
         public TextView contactName;
     }
 
     // Renders the ListView item that the user has scrolled to or is about to scroll to
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
         ViewHolder holder;
-        if (v == null)
-        {
+        if (v == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.friends_list_item, null);
+            v = vi.inflate(R.layout.friends_list_item, parent, false);
             holder = new ViewHolder();
             holder.contactName = (TextView) v.findViewById(R.id.contact_name);
             v.setTag(holder);
         }
-        else
-        {
+        else {
             holder = (ViewHolder) v.getTag();
         }
 

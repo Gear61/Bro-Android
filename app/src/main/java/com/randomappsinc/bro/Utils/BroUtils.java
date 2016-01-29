@@ -47,10 +47,7 @@ public class BroUtils {
         String statusMessage = record.getEventDeclaration();
         Set<String> invitedPhoneNumbers = PreferencesManager.get().getInvitedPhoneNumbers();
         if (sendInvite) {
-            if (invitedPhoneNumbers.contains(record.getTargetPhoneNumber())) {
-                statusMessage += "You have already shared Bro with this friend, so we didn't add a link to your text.";
-            }
-            else {
+            if (!invitedPhoneNumbers.contains(record.getTargetPhoneNumber())) {
                 textMessage += APP_LINK_MESSAGE;
                 String unlockedMessage = getUnlockedMessage(invitedPhoneNumbers.size());
                 if (!unlockedMessage.isEmpty()) {
