@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,6 +20,7 @@ import com.randomappsinc.bro.Models.Record;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.BroUtils;
+import com.rey.material.widget.CheckBox;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,6 +48,7 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.friends, container, false);
         ButterKnife.bind(this, rootView);
+        sendInviteCheckbox.setCheckedImmediately(true);
         context = getActivity();
 
         friendsAdapter = new FriendsAdapter(getActivity());
