@@ -13,6 +13,9 @@ import com.randomappsinc.bro.Utils.FriendServer;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by alexanderchiou on 8/20/15.
  */
@@ -42,28 +45,26 @@ public class FriendsAdapter extends BaseAdapter {
         return position;
     }
 
-    public static class ViewHolder {
-        public TextView contactName;
+    public class FriendViewHolder {
+        @Bind(R.id.contact_name) TextView contactName;
+
+        public FriendViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
-    // Renders the ListView item that the user has scrolled to or is about to scroll to
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View v = convertView;
-        ViewHolder holder;
-        if (v == null) {
+    public View getView(int position, View view, ViewGroup parent) {
+        FriendViewHolder holder;
+        if (view == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.friends_list_item, parent, false);
-            holder = new ViewHolder();
-            holder.contactName = (TextView) v.findViewById(R.id.contact_name);
-            v.setTag(holder);
+            view = vi.inflate(R.layout.friends_list_item, parent, false);
+            holder = new FriendViewHolder(view);
+            view.setTag(holder);
         }
         else {
-            holder = (ViewHolder) v.getTag();
+            holder = (FriendViewHolder) view.getTag();
         }
-
-        Friend friend = friends.get(position);
-        holder.contactName.setText(friend.getName());
-
-        return v;
+        holder.contactName.setText(getItem(position).getName());
+        return view;
     }
 }

@@ -13,35 +13,33 @@ import com.randomappsinc.bro.R;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by alexanderchiou on 8/25/15.
  */
-public class StoriesAdapter extends BaseAdapter
-{
+public class StoriesAdapter extends BaseAdapter {
     private Context context;
     private List<Record> stories;
 
-    public StoriesAdapter(Context context)
-    {
+    public StoriesAdapter(Context context) {
         this.context = context;
         this.stories = RecordDataSource.getAllRecords();
     }
 
-    public void addNewStory(Record record)
-    {
+    public void addNewStory(Record record) {
         stories.add(0, record);
         notifyDataSetChanged();
     }
 
-    public void deleteStoryAt(int position)
-    {
+    public void deleteStoryAt(int position) {
         RecordDataSource.deleteRecord(stories.get(position).getRecordId());
         stories.remove(position);
         notifyDataSetChanged();
     }
 
-    public int getCount()
-    {
+    public int getCount() {
         return stories.size();
     }
 
@@ -50,38 +48,34 @@ public class StoriesAdapter extends BaseAdapter
     }
 
     public long getItemId(int position) {
-        return position;
+        return getItem(position).hashCode();
     }
 
-    public static class ViewHolder
-    {
-        public TextView eventDeclaration;
-        public TextView timeOfEvent;
-    }
+    public class StoryViewHolder {
+        @Bind(R.id.event_declaration) TextView eventDeclaration;
+        @Bind(R.id.time_of_event) TextView timeOfEvent;
 
-    // Renders the ListView item that the user has scrolled to or is about to scroll to
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-        View v = convertView;
-        ViewHolder holder;
-        if (v == null)
-        {
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.stories_list_item, null);
-            holder = new ViewHolder();
-            holder.eventDeclaration = (TextView) v.findViewById(R.id.event_declaration);
-            holder.timeOfEvent = (TextView) v.findViewById(R.id.time_of_event);
-            v.setTag(holder);
+        public StoryViewHolder(View view) {
+            ButterKnife.bind(this, view);
         }
-        else
-        {
-            holder = (ViewHolder) v.getTag();
+    }
+
+    public View getView(int position, View view, ViewGroup parent) {
+        StoryViewHolder holder;
+        if (view == null) {
+            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = vi.inflate(R.layout.stories_list_item, parent, false);
+            holder = new StoryViewHolder(view);
+            view.setTag(holder);
+        }
+        else {
+            holder = (StoryViewHolder) view.getTag();
         }
 
         Record record = stories.get(position);
         holder.eventDeclaration.setText(record.getEventDeclaration());
         holder.timeOfEvent.setText(record.getTimeStamp());
 
-        return v;
+        return view;
     }
 }
