@@ -6,15 +6,19 @@ import android.support.v13.app.FragmentPagerAdapter;
 
 import com.randomappsinc.bro.Fragments.FriendsFragment;
 import com.randomappsinc.bro.Fragments.HistoryFragment;
+import com.randomappsinc.bro.R;
+import com.randomappsinc.bro.Utils.MyApplication;
 
 /**
  * Created by Alex on 1/29/2015.
  */
 public class HomepageTabsAdapter extends FragmentPagerAdapter {
-    private String tabTitles[] = new String[] {"Friends", "History"};
+    private String tabTitles[];
+    private HistoryFragment historyFragment;
 
     public HomepageTabsAdapter(FragmentManager fm) {
         super(fm);
+        tabTitles = MyApplication.getAppContext().getResources().getStringArray(R.array.tabs);
     }
 
     @Override
@@ -28,10 +32,15 @@ public class HomepageTabsAdapter extends FragmentPagerAdapter {
             case 0:
                 return new FriendsFragment();
             case 1:
-                return new HistoryFragment();
+                historyFragment = new HistoryFragment();
+                return historyFragment;
             default:
                 return null;
         }
+    }
+
+    public HistoryFragment getHistoryFragment() {
+        return historyFragment;
     }
 
     @Override

@@ -189,7 +189,8 @@ public class FriendsFragment extends Fragment {
         String message = PreferencesManager.get().getMessage();
         int recordId = PreferencesManager.get().getHighestRecordId() + 1;
         Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
-        String statusMessage = BroUtils.processBro(getActivity(), record, sendInviteCheckbox.isChecked());
+        HistoryFragment historyFragment = ((MainActivity) getActivity()).getHomepageTabsAdapter().getHistoryFragment();
+        String statusMessage = BroUtils.processBro(record, sendInviteCheckbox.isChecked(), historyFragment);
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.showSnackbar(statusMessage);
     }

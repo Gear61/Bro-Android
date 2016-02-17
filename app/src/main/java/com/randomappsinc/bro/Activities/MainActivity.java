@@ -27,14 +27,16 @@ public class MainActivity extends StandardActivity {
     @Bind(R.id.viewpager) ViewPager mViewPager;
     @Bind(R.id.sliding_tabs) SlidingTabLayout slidingTabLayout;
 
+    private HomepageTabsAdapter homepageTabsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        HomepageTabsAdapter profileTabsAdapter = new HomepageTabsAdapter(getFragmentManager());
-        mViewPager.setAdapter(profileTabsAdapter);
+        homepageTabsAdapter = new HomepageTabsAdapter(getFragmentManager());
+        mViewPager.setAdapter(homepageTabsAdapter);
         slidingTabLayout.setViewPager(mViewPager);
 
         if (PreferencesManager.get().isFirstTimeUser()) {
@@ -45,6 +47,10 @@ public class MainActivity extends StandardActivity {
                     .show();
             PreferencesManager.get().rememberShowingTutorial();
         }
+    }
+
+    public HomepageTabsAdapter getHomepageTabsAdapter() {
+        return homepageTabsAdapter;
     }
 
     public void showSnackbar(String message) {

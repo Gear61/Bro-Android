@@ -1,13 +1,11 @@
 package com.randomappsinc.bro.Utils;
 
-import android.content.Context;
-import android.content.Intent;
 import android.telephony.SmsManager;
 
+import com.randomappsinc.bro.Fragments.HistoryFragment;
 import com.randomappsinc.bro.Models.Record;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.Persistence.RecordDataSource;
-import com.randomappsinc.bro.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +40,7 @@ public class BroUtils {
         return messageOptions;
     }
 
-    public static String processBro(Context context, Record record, boolean sendInvite) {
+    public static String processBro(Record record, boolean sendInvite, HistoryFragment historyFragment) {
         String textMessage = PreferencesManager.get().getMessage();
         String statusMessage = record.getEventDeclaration();
         Set<String> invitedPhoneNumbers = PreferencesManager.get().getInvitedPhoneNumbers();
@@ -64,10 +62,8 @@ public class BroUtils {
         SmsManager.getDefault().sendTextMessage(record.getTargetPhoneNumber(), null, textMessage, null, null);
 
         // Update history
-        Intent intent = new Intent();
-        intent.setAction(context.getString(R.string.bro_event_key));
-        intent.putExtra(context.getString(R.string.record_key), record);
-        context.sendBroadcast(intent);
+        historyFragment.addNewStory(record);
+
         return statusMessage;
     }
 

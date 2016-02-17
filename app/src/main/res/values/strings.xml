@@ -46,5 +46,15 @@
 
     <!-- Permissions -->
     <string name="read_contacts_explanation">In order for this app to function, we need access to your contacts.</string>
-    <string name="send_sms_explanation">For maximum Bro-ing efficiency, you need to allow us to send text messages on your behalf.</string>
+    <string name="send_sms_explanation">
+        For maximum Bro-ing efficiency,
+        you need to allow us to send text messages on your behalf.
+    </string>
+
+    <string name="friends">Friends</string>
+    <string name="history">History</string>
+    <string-array name="tabs">
+        <item>@string/friends</item>
+        <item>@string/history</item>
+    </string-array>
 </resources>

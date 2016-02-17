@@ -1,10 +1,6 @@
 package com.randomappsinc.bro.Fragments;
 
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,14 +32,6 @@ public class HistoryFragment extends Fragment {
     @Bind(R.id.no_stories) TextView noStories;
 
     private StoriesAdapter storiesAdapter;
-    private BroReceiver broReceiver;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        broReceiver = new BroReceiver();
-        getActivity().registerReceiver(broReceiver, new IntentFilter(getString(R.string.bro_event_key)));
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,22 +62,9 @@ public class HistoryFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        try {
-            getActivity().unregisterReceiver(broReceiver);
-        }
-        catch (IllegalArgumentException ignored) {}
-    }
-
-    private class BroReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Record record = intent.getParcelableExtra(getString(R.string.record_key));
-            storiesAdapter.addNewStory(record);
-            refreshContent();
-        }
+    public void addNewStory(Record record) {
+        storiesAdapter.addNewStory(record);
+        refreshContent();
     }
 
     @Override
@@ -111,6 +86,7 @@ public class HistoryFragment extends Fragment {
 
         CharSequence[] options = storyChoices.toArray(new CharSequence[storyChoices.size()]);
 
+        final HistoryFragment historyFragment = this;
         new MaterialDialog.Builder(getActivity())
                 .title(R.string.story_options)
                 .items(options)
@@ -123,7 +99,7 @@ public class HistoryFragment extends Fragment {
                                 Record baseRecord = storiesAdapter.getItem(position);
                                 Record record = new Record(recordId, baseRecord.getTargetPhoneNumber(),
                                         baseRecord.getTargetName(), baseRecord.getMessageSent());
-                                String statusMessage = BroUtils.processBro(getActivity(), record, false);
+                                String statusMessage = BroUtils.processBro(record, false, historyFragment);
                                 MainActivity mainActivity = (MainActivity) getActivity();
                                 mainActivity.showSnackbar(statusMessage);
                                 break;
