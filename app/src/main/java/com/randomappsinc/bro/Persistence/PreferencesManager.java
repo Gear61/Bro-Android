@@ -17,6 +17,7 @@ public class PreferencesManager {
     private static final String HIGHEST_RECORD_ID_KEY = "highestRecordId";
     private static final String SHOULD_CONFIRM_KEY = "shouldConfirm";
     private static final String FIRST_TIME_KEY = "firstTime";
+    private static final String NUM_APP_OPENS_KEY = "numAppOpens";
     private static PreferencesManager instance;
     private SharedPreferences prefs;
 
@@ -79,5 +80,12 @@ public class PreferencesManager {
 
     public void rememberShowingTutorial() {
         prefs.edit().putBoolean(FIRST_TIME_KEY, false).apply();
+    }
+
+    public boolean shouldAskForRating() {
+        int numAppOpens = prefs.getInt(NUM_APP_OPENS_KEY, 0);
+        numAppOpens++;
+        prefs.edit().putInt(NUM_APP_OPENS_KEY, numAppOpens).apply();
+        return numAppOpens == 5;
     }
 }

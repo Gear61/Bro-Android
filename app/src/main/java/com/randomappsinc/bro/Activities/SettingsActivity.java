@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.bro.Adapters.SettingsAdapter;
 import com.randomappsinc.bro.R;
+import com.randomappsinc.bro.Utils.FormUtils;
 
 import butterknife.Bind;
 import butterknife.BindString;
@@ -69,7 +70,7 @@ public class SettingsActivity extends StandardActivity {
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
-                    Snackbar.make(parent, playStoreError, Snackbar.LENGTH_LONG).show();
+                    FormUtils.showSnackbar(parent, playStoreError);
                     return;
                 }
                 break;

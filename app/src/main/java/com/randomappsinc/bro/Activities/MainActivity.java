@@ -1,12 +1,15 @@
 package com.randomappsinc.bro.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
@@ -46,6 +49,24 @@ public class MainActivity extends StandardActivity {
                     .positiveText(android.R.string.yes)
                     .show();
             PreferencesManager.get().rememberShowingTutorial();
+        }
+
+        if (PreferencesManager.get().shouldAskForRating()) {
+            new MaterialDialog.Builder(this)
+                    .content(R.string.please_rate)
+                    .positiveText(R.string.will_rate)
+                    .negativeText(R.string.decline_rating)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            if ((getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
+                                startActivity(intent);
+                            }
+                        }
+                    })
+                    .show();
         }
     }
 
