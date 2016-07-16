@@ -5,11 +5,11 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.randomappsinc.bro"
+        applicationId "com.randomappsinc.brotobromessenger"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 203
-        versionName "2.0.3"
+        versionCode 1
+        versionName "1.0.0"
         generatedDensities = []
     }
     aaptOptions {

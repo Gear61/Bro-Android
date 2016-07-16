@@ -61,8 +61,7 @@ public class FriendsFragment extends Fragment {
         sendInviteCheckbox.setCheckedImmediately(true);
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             requestPermission(Manifest.permission.READ_CONTACTS, READ_CONTACTS_REQUEST);
-        }
-        else {
+        } else {
             setUpFriendsList();
         }
         return rootView;
@@ -175,12 +174,10 @@ public class FriendsFragment extends Fragment {
                             }
                         })
                         .show();
-            }
-            else {
+            } else {
                 sendBro(friend);
             }
-        }
-        else {
+        } else {
             requestPermission(Manifest.permission.SEND_SMS, SEND_SMS_REQUEST);
         }
     }
