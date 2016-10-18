@@ -4,8 +4,8 @@ import android.telephony.SmsManager;
 
 import com.randomappsinc.bro.Fragments.HistoryFragment;
 import com.randomappsinc.bro.Models.Record;
+import com.randomappsinc.bro.Persistence.DatabaseManager;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
-import com.randomappsinc.bro.Persistence.RecordDataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +55,7 @@ public class BroUtils {
             }
         }
         // Update the DB/Shared Preferences
-        RecordDataSource.insertRecord(record);
-        PreferencesManager.get().incrementHighestRecordId();
+        DatabaseManager.get().addRecord(record);
 
         // Send the text
         SmsManager.getDefault().sendTextMessage(record.getTargetPhoneNumber(), null, textMessage, null, null);

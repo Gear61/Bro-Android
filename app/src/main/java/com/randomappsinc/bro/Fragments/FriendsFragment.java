@@ -21,6 +21,7 @@ import com.randomappsinc.bro.Activities.MainActivity;
 import com.randomappsinc.bro.Adapters.FriendsAdapter;
 import com.randomappsinc.bro.Models.Friend;
 import com.randomappsinc.bro.Models.Record;
+import com.randomappsinc.bro.Persistence.DatabaseManager;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.BroUtils;
@@ -184,7 +185,7 @@ public class FriendsFragment extends Fragment {
 
     private void sendBro(Friend friend) {
         String message = PreferencesManager.get().getMessage();
-        int recordId = PreferencesManager.get().getHighestRecordId() + 1;
+        long recordId = DatabaseManager.get().getNextId();
         Record record = new Record(recordId, friend.getPhoneNumber(), friend.getName(), message);
         HistoryFragment historyFragment = ((MainActivity) getActivity()).getHomepageTabsAdapter().getHistoryFragment();
         String statusMessage = BroUtils.processBro(record, sendInviteCheckbox.isChecked(), historyFragment);

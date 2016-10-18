@@ -12,6 +12,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.bro.Activities.MainActivity;
 import com.randomappsinc.bro.Adapters.StoriesAdapter;
 import com.randomappsinc.bro.Models.Record;
+import com.randomappsinc.bro.Persistence.DatabaseManager;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.BroUtils;
@@ -81,7 +82,7 @@ public class HistoryFragment extends Fragment {
     public void onItemClick(final int position) {
         Record record = storiesAdapter.getItem(position);
         List<String> storyChoices = new ArrayList<>();
-        storyChoices.add("Re-" + record.getMessageSent() + " " + record.getTargetName());
+        storyChoices.add("Re-" + record.getMessage() + " " + record.getTargetName());
         storyChoices.add(getString(R.string.delete_story));
 
         CharSequence[] options = storyChoices.toArray(new CharSequence[storyChoices.size()]);
@@ -95,10 +96,10 @@ public class HistoryFragment extends Fragment {
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         switch (which) {
                             case 0:
-                                int recordId = PreferencesManager.get().getHighestRecordId() + 1;
+                                long recordId = DatabaseManager.get().getNextId();
                                 Record baseRecord = storiesAdapter.getItem(position);
                                 Record record = new Record(recordId, baseRecord.getTargetPhoneNumber(),
-                                        baseRecord.getTargetName(), baseRecord.getMessageSent());
+                                        baseRecord.getTargetName(), baseRecord.getMessage());
                                 String statusMessage = BroUtils.processBro(record, false, historyFragment);
                                 MainActivity mainActivity = (MainActivity) getActivity();
                                 mainActivity.showSnackbar(statusMessage);

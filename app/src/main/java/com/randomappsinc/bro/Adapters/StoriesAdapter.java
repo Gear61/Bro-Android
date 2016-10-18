@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.randomappsinc.bro.Models.Record;
-import com.randomappsinc.bro.Persistence.RecordDataSource;
+import com.randomappsinc.bro.Persistence.DatabaseManager;
 import com.randomappsinc.bro.R;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class StoriesAdapter extends BaseAdapter {
 
     public StoriesAdapter(Context context) {
         this.context = context;
-        this.stories = RecordDataSource.getAllRecords();
+        this.stories = DatabaseManager.get().getHistory();
     }
 
     public void addNewStory(Record record) {
@@ -34,7 +34,7 @@ public class StoriesAdapter extends BaseAdapter {
     }
 
     public void deleteStoryAt(int position) {
-        RecordDataSource.deleteRecord(stories.get(position).getRecordId());
+        DatabaseManager.get().deleteRecord(stories.get(position).getId());
         stories.remove(position);
         notifyDataSetChanged();
     }
@@ -67,8 +67,7 @@ public class StoriesAdapter extends BaseAdapter {
             view = vi.inflate(R.layout.stories_list_item, parent, false);
             holder = new StoryViewHolder(view);
             view.setTag(holder);
-        }
-        else {
+        } else {
             holder = (StoryViewHolder) view.getTag();
         }
 

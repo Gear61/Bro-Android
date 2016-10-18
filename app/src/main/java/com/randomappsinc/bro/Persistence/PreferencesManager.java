@@ -14,7 +14,6 @@ import java.util.Set;
 public class PreferencesManager {
     private static final String INVITED_PHONE_NUMBERS = "invitedPhoneNumbers";
     private static final String MESSAGE_KEY = "message";
-    private static final String HIGHEST_RECORD_ID_KEY = "highestRecordId";
     private static final String SHOULD_CONFIRM_KEY = "shouldConfirm";
     private static final String FIRST_TIME_KEY = "firstTime";
     private static final String NUM_APP_OPENS_KEY = "numAppOpens";
@@ -56,14 +55,6 @@ public class PreferencesManager {
 
     public void setMessage(String message) {
         prefs.edit().putString(MESSAGE_KEY, message).apply();
-    }
-
-    public int getHighestRecordId() {
-        return prefs.getInt(HIGHEST_RECORD_ID_KEY, 0);
-    }
-
-    public void incrementHighestRecordId() {
-        prefs.edit().putInt(HIGHEST_RECORD_ID_KEY, getHighestRecordId() + 1).apply();
     }
 
     public boolean getShouldConfirm() {
