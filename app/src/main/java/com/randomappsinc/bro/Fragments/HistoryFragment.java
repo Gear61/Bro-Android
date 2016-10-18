@@ -13,7 +13,6 @@ import com.randomappsinc.bro.Activities.MainActivity;
 import com.randomappsinc.bro.Adapters.StoriesAdapter;
 import com.randomappsinc.bro.Models.Record;
 import com.randomappsinc.bro.Persistence.DatabaseManager;
-import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.BroUtils;
 import com.randomappsinc.bro.Utils.FormUtils;

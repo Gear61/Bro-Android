@@ -7,10 +7,8 @@
     <!-- Tutorial -->
     <string name="tutorial">Tutorial</string>
     <string name="instructions">Simply click on your friends to \"Bro\" them.
-        Include a link to the app in your messages to unlock new words.
-        Use the buttons in the toolbar above to choose your message and control confirmation behavior.
-        You can review this tutorial at any time from the settings page.
-        Thank you for downloading this app and welcome to the Brovolution!</string>
+        Link this app in your \"Bros\" to unlock awesome new words.
+        Welcome to the Brovolution!</string>
 
     <!-- Friends -->
     <string name="link_spam">Include a link to this app in your messages.</string>
@@ -21,10 +19,6 @@
 
     <!-- History -->
     <string name="no_stories">No stories to display.</string>
-
-    <!-- Broadcast keys -->
-    <string name="bro_event_key">broEvent</string>
-    <string name="record_key">record</string>
 
     <!-- Font Awesome icons -->
     <string name="x_icon">{fa-remove}</string>
