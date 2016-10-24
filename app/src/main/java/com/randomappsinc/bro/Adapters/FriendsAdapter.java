@@ -57,7 +57,7 @@ public class FriendsAdapter extends BaseAdapter {
         FriendViewHolder holder;
         if (view == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = vi.inflate(R.layout.friends_list_item, parent, false);
+            view = vi.inflate(R.layout.friend_cell, parent, false);
             holder = new FriendViewHolder(view);
             view.setTag(holder);
         }

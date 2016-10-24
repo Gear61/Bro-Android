@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.bro.Adapters.SettingsAdapter;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.FormUtils;
@@ -40,32 +39,21 @@ public class SettingsActivity extends StandardActivity {
         settingsOptions.setAdapter(new SettingsAdapter(this));
     }
 
-    public void showTutorial() {
-        new MaterialDialog.Builder(this)
-                .title(R.string.tutorial)
-                .content(R.string.settings_instructions)
-                .positiveText(android.R.string.yes)
-                .show();
-    }
-
     @OnItemClick(R.id.settings_options)
     public void onItemClick(int position) {
         Intent intent = null;
         switch (position) {
             case 0:
-                showTutorial();
-                return;
-            case 1:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
                 Uri mailUri = Uri.parse(uriText);
                 Intent sendIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
                 sendIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(Intent.createChooser(sendIntent, sendEmail));
                 return;
-            case 2:
+            case 1:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OTHER_APPS_URL));
                 break;
-            case 3:
+            case 2:
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
@@ -73,7 +61,7 @@ public class SettingsActivity extends StandardActivity {
                     return;
                 }
                 break;
-            case 4:
+            case 3:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL));
                 break;
         }

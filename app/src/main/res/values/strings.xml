@@ -6,9 +6,11 @@
 
     <!-- Tutorial -->
     <string name="tutorial">Tutorial</string>
-    <string name="instructions">Simply click on your friends to \"Bro\" them.
+    <string name="instructions">
+        Simply click on your friends to \"Bro\" them.
         Link this app in your \"Bros\" to unlock awesome new words.
-        Welcome to the Brovolution!</string>
+        Welcome to the Brovolution!
+    </string>
 
     <!-- Friends -->
     <string name="link_spam">Include a link to this app in your messages.</string>
@@ -21,8 +23,7 @@
     <string name="no_stories">No stories to display.</string>
 
     <!-- Font Awesome icons -->
-    <string name="x_icon">{fa-remove}</string>
-    <string name="right_arrow_icon">{fa-angle-right}</string>
+    <string name="x_icon">{ion-android-close}</string>
 
     <!-- Settings -->
     <string name="message_choices">Message Choices</string>

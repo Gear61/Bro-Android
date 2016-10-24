@@ -64,7 +64,7 @@ public class StoriesAdapter extends BaseAdapter {
         StoryViewHolder holder;
         if (view == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = vi.inflate(R.layout.stories_list_item, parent, false);
+            view = vi.inflate(R.layout.history_cell, parent, false);
             holder = new StoryViewHolder(view);
             view.setTag(holder);
         } else {

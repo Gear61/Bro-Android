@@ -5,7 +5,7 @@
         <item name="colorAccent">@color/app_blue</item>
     </style>
 
-    <style name="no_action_bar" parent="Theme.AppCompat.NoActionBar">
+    <style name="no_action_bar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/app_blue</item>
         <item name="colorPrimaryDark">@color/status_bar_blue</item>
         <item name="colorAccent">@color/app_blue</item>

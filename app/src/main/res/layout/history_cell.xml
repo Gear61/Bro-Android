@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:mrl_rippleColor="@color/gray"
     app:mrl_rippleInAdapter="true"
-    app:mrl_rippleDuration="250"
+    app:mrl_rippleDuration="200"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

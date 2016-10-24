@@ -14,7 +14,7 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.IconDrawable;
-import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.bro.Adapters.HomepageTabsAdapter;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.R;
@@ -133,15 +133,15 @@ public class MainActivity extends StandardActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.findItem(R.id.choose_message).setIcon(
-                new IconDrawable(this, FontAwesomeIcons.fa_wechat)
+                new IconDrawable(this, IoniconsIcons.ion_android_chat)
                         .colorRes(R.color.white)
                         .actionBarSize());
         menu.findItem(R.id.confirm_messages).setIcon(
-                new IconDrawable(this, FontAwesomeIcons.fa_hand_stop_o)
+                new IconDrawable(this, IoniconsIcons.ion_android_hand)
                         .colorRes(R.color.white)
                         .actionBarSize());
         menu.findItem(R.id.settings).setIcon(
-                new IconDrawable(this, FontAwesomeIcons.fa_gear)
+                new IconDrawable(this, IoniconsIcons.ion_android_settings)
                         .colorRes(R.color.white)
                         .actionBarSize());
         return true;
