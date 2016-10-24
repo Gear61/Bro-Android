@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.balysv.materialripple.MaterialRippleLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:mrl_rippleColor="@color/gray"
+    app:mrl_rippleInAdapter="true"
+    app:mrl_rippleDuration="250"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/time_of_event"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="2dp"
-        android:textColor="#d3d3d3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/event_declaration"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/time_of_event"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/time_of_event"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="2dp"
+            android:textSize="13dp"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/event_declaration"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/time_of_event"
+            android:layout_marginLeft="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:textSize="16dp"
+            android:textColor="@color/dark_gray"/>
+    </RelativeLayout>
+</com.balysv.materialripple.MaterialRippleLayout>

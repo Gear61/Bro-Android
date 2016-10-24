@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +16,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.randomappsinc.bro.Adapters.HomepageTabsAdapter;
-import com.randomappsinc.bro.Layouts.SlidingTabLayout;
 import com.randomappsinc.bro.Persistence.PreferencesManager;
 import com.randomappsinc.bro.R;
 import com.randomappsinc.bro.Utils.BroUtils;
@@ -26,9 +27,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends StandardActivity {
+    @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.parent) View parent;
-    @Bind(R.id.viewpager) ViewPager mViewPager;
-    @Bind(R.id.sliding_tabs) SlidingTabLayout slidingTabLayout;
+    @Bind(R.id.view_pager) ViewPager mViewPager;
+    @Bind(R.id.tab_layout) TabLayout slidingTabLayout;
 
     private HomepageTabsAdapter homepageTabsAdapter;
 
@@ -38,9 +40,10 @@ public class MainActivity extends StandardActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
         homepageTabsAdapter = new HomepageTabsAdapter(getFragmentManager());
         mViewPager.setAdapter(homepageTabsAdapter);
-        slidingTabLayout.setViewPager(mViewPager);
+        slidingTabLayout.setupWithViewPager(mViewPager);
 
         if (PreferencesManager.get().isFirstTimeUser()) {
             new MaterialDialog.Builder(this)

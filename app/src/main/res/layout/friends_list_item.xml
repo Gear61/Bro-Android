@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.balysv.materialripple.MaterialRippleLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:paddingTop="15dp"
-    android:paddingBottom="15dp"
-    android:paddingLeft="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:mrl_rippleColor="@color/gray"
+    app:mrl_rippleInAdapter="true"
+    app:mrl_rippleDuration="250"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="12dp">
 
     <TextView
         android:id="@+id/contact_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"/>
-</LinearLayout>
+        android:textColor="@color/dark_gray"
+        android:textSize="18dp"/>
+</com.balysv.materialripple.MaterialRippleLayout>

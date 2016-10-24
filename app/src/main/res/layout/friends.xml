@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:orientation="vertical">
 
     <FrameLayout
@@ -13,8 +12,8 @@
         android:layout_height="match_parent">
 
         <com.rey.material.widget.ProgressView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             app:pv_autostart="true"
             app:pv_circular="true"
@@ -32,26 +31,35 @@
             android:id="@+id/link_spam_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:gravity="center_vertical"
             android:text="@string/link_spam"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textColor="@color/dark_gray"
-            app:cbd_animDuration="100"/>
+            app:cbd_animDuration="100"
+            app:cbd_strokeColor="@color/app_blue"/>
 
         <FrameLayout
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <EditText
                 android:id="@+id/friend_input"
                 android:background="@drawable/text_input_border"
-                android:paddingRight="35dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
+                android:paddingRight="36dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
                 android:textSize="18dp"
                 android:textColor="@color/dark_gray"
+                android:textColorHint="@color/gray"
                 android:imeOptions="actionDone"
                 android:inputType="textPersonName"
                 android:layout_width="match_parent"
@@ -66,13 +74,16 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:text="@string/x_icon"
-                android:textSize="22dp"/>
+                android:textSize="22dp"
+                android:textColor="@color/dark_gray"/>
         </FrameLayout>
 
         <ListView
             android:id="@+id/friends_list"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:divider="@color/gray_300"
+            android:dividerHeight="1dp"/>
     </LinearLayout>
 </LinearLayout>

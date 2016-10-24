@@ -32,4 +32,5 @@ dependencies {
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.1'
     compile 'com.github.rey5137:material:1.2.2'
     compile 'com.android.support:support-v13:24.2.1'
+    compile 'com.balysv:material-ripple:1.0.2'
 }

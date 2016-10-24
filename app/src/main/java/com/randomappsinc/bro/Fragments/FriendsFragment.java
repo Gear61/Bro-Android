@@ -47,6 +47,7 @@ public class FriendsFragment extends Fragment {
     @Bind(R.id.link_spam_checkbox) CheckBox sendInviteCheckbox;
     @Bind(R.id.friends_list) ListView friendsList;
     @Bind(R.id.friend_input) EditText friendInput;
+    @Bind(R.id.clear_input) View clearInput;
 
     private FriendsAdapter friendsAdapter;
 
@@ -151,7 +152,14 @@ public class FriendsFragment extends Fragment {
 
     @OnTextChanged(value = R.id.friend_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void afterTextChanged(Editable searchInput) {
-        friendsAdapter.updateWithPrefix(searchInput.toString());
+        if (searchInput.length() == 0) {
+            clearInput.setVisibility(View.GONE);
+        } else {
+            clearInput.setVisibility(View.VISIBLE);
+        }
+        if (friendsAdapter != null) {
+            friendsAdapter.updateWithPrefix(searchInput.toString());
+        }
     }
 
     @OnItemClick(R.id.friends_list)
