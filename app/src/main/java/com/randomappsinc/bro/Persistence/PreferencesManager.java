@@ -77,6 +77,6 @@ public class PreferencesManager {
         int numAppOpens = prefs.getInt(NUM_APP_OPENS_KEY, 0);
         numAppOpens++;
         prefs.edit().putInt(NUM_APP_OPENS_KEY, numAppOpens).apply();
-        return numAppOpens == 5;
+        return numAppOpens == 3;
     }
 }

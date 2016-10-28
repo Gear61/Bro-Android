@@ -46,6 +46,7 @@ public class FriendsFragment extends Fragment {
     @Bind(R.id.content) View content;
     @Bind(R.id.link_spam_checkbox) CheckBox sendInviteCheckbox;
     @Bind(R.id.friends_list) ListView friendsList;
+    @Bind(R.id.no_matching_friends) View noMatchingFriends;
     @Bind(R.id.friend_input) EditText friendInput;
     @Bind(R.id.clear_input) View clearInput;
 
@@ -69,6 +70,14 @@ public class FriendsFragment extends Fragment {
         return rootView;
     }
 
+    public void setNoFriends() {
+        if (friendsAdapter.getCount() == 0) {
+            noMatchingFriends.setVisibility(View.VISIBLE);
+        } else {
+            noMatchingFriends.setVisibility(View.GONE);
+        }
+    }
+
     public void setUpFriendsList() {
         new FriendsListInitializer().execute();
     }
@@ -90,6 +99,7 @@ public class FriendsFragment extends Fragment {
                 content.setVisibility(View.VISIBLE);
                 friendsAdapter = new FriendsAdapter(getActivity());
                 friendsList.setAdapter(friendsAdapter);
+                setNoFriends();
             }
         });
     }
@@ -159,6 +169,7 @@ public class FriendsFragment extends Fragment {
         }
         if (friendsAdapter != null) {
             friendsAdapter.updateWithPrefix(searchInput.toString());
+            setNoFriends();
         }
     }
 

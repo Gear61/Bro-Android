@@ -7,7 +7,6 @@
 
     <ListView
         android:id="@+id/stories_list"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/gray_300"
@@ -15,9 +14,10 @@
 
     <TextView
         android:id="@+id/no_stories"
-        android:visibility="gone"
-        android:layout_marginTop="75dp"
-        android:textSize="24sp"
+        android:layout_marginTop="76dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="24dp"
         android:text="@string/no_stories"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"

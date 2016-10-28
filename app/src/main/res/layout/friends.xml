@@ -79,6 +79,18 @@
                 android:textColor="@color/dark_gray"/>
         </FrameLayout>
 
+        <TextView
+            android:id="@+id/no_matching_friends"
+            android:textSize="24dp"
+            android:text="@string/no_matching_friends"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
         <ListView
             android:id="@+id/friends_list"
             android:layout_marginTop="4dp"
