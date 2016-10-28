@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class BroUtils {
     public static final String APP_LINK_MESSAGE = "\n\nJoin the brovolution: " +
-            "https://play.google.com/store/apps/details?id=com.randomappsinc.bro";
+            "https://play.google.com/store/apps/details?id=com.randomappsinc.brotobromessenger";
 
     public static List<String> getMessageOptions() {
         List<String> messageOptions = new ArrayList<>();

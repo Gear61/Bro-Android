@@ -9,8 +9,8 @@ android {
         applicationId "com.randomappsinc.brotobromessenger"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 4
-        versionName "1.1.0"
+        versionCode 5
+        versionName "1.1.1"
     }
     aaptOptions {
         additionalParameters "--no-version-vectors"
