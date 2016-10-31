@@ -45,15 +45,6 @@ public class MainActivity extends StandardActivity {
         mViewPager.setAdapter(homepageTabsAdapter);
         slidingTabLayout.setupWithViewPager(mViewPager);
 
-        if (PreferencesManager.get().isFirstTimeUser()) {
-            new MaterialDialog.Builder(this)
-                    .title(R.string.tutorial)
-                    .content(R.string.instructions)
-                    .positiveText(android.R.string.yes)
-                    .show();
-            PreferencesManager.get().rememberShowingTutorial();
-        }
-
         if (PreferencesManager.get().shouldAskForRating()) {
             new MaterialDialog.Builder(this)
                     .content(R.string.please_rate)
@@ -85,7 +76,7 @@ public class MainActivity extends StandardActivity {
         List<String> optionsList = BroUtils.getMessageOptions();
         CharSequence[] options = optionsList.toArray(new CharSequence[optionsList.size()]);
 
-        new MaterialDialog.Builder(this)
+        MaterialDialog messageDialog = new MaterialDialog.Builder(this)
                 .title(R.string.message_choices)
                 .items(options)
                 .itemsCallbackSingleChoice(BroUtils.getCurrentMessageIndex(),
@@ -100,7 +91,13 @@ public class MainActivity extends StandardActivity {
                         })
                 .positiveText(R.string.choose)
                 .negativeText(android.R.string.no)
-                .show();
+                .build();
+
+        if (options.length < 6) {
+            messageDialog.setContent(R.string.unlock_instructions);
+        }
+
+        messageDialog.show();
     }
 
     public void showChooseConfirmDialog() {
@@ -161,7 +158,6 @@ public class MainActivity extends StandardActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 }

@@ -15,7 +15,6 @@ public class PreferencesManager {
     private static final String INVITED_PHONE_NUMBERS = "invitedPhoneNumbers";
     private static final String MESSAGE_KEY = "message";
     private static final String SHOULD_CONFIRM_KEY = "shouldConfirm";
-    private static final String FIRST_TIME_KEY = "firstTime";
     private static final String NUM_APP_OPENS_KEY = "numAppOpens";
     private static PreferencesManager instance;
     private SharedPreferences prefs;
@@ -63,14 +62,6 @@ public class PreferencesManager {
 
     public void setShouldConfirm(boolean shouldConfirm) {
         prefs.edit().putBoolean(SHOULD_CONFIRM_KEY, shouldConfirm).apply();
-    }
-
-    public boolean isFirstTimeUser() {
-        return prefs.getBoolean(FIRST_TIME_KEY, true);
-    }
-
-    public void rememberShowingTutorial() {
-        prefs.edit().putBoolean(FIRST_TIME_KEY, false).apply();
     }
 
     public boolean shouldAskForRating() {

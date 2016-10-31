@@ -4,12 +4,8 @@
     <string name="confirm_messages">Confirm messages</string>
     <string name="settings">Settings</string>
 
-    <!-- Tutorial -->
-    <string name="tutorial">Tutorial</string>
-    <string name="instructions">
-        Simply click on your friends to \"Bro\" them.
-        Link this app in your \"Bros\" to unlock awesome new words.
-        Welcome to the Brovolution!
+    <string name="unlock_instructions">
+        Include a link to Bro in your messages to expand your Brocabulary.
     </string>
 
     <!-- Friends -->
